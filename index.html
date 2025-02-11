@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Lab 1: Introducción a las aplicaciones web, HTML5 y ciclo de vida de los
+      sistemas de información.
+    </title>
+  </head>
+  <body>
+    <header>
+      <h1>Pagina para Lab 1 - Leonardo Cervantes Perez</h1>
+      <nav>
+        <ul>
+          <li><a href="#acerca">Sobre mí</a></li>
+          <li><a href="#proyectos">Proyectos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+          <li><a href="#Q&A">Preguntas</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section id="acerca">
+      <h2>Sobre mí</h2>
+      <h3>
+        Hola, me llamo Leonardo y me encanta la programación y el desarrollo
+        web, tambien disfruto mucho el Arte, ver metrajes, diseñar y dibujar.
+      </h3>
+    </section>
+
+    <section id="proyectos">
+      <h2>Mis Proyectos Recientes</h2>
+
+      <article>
+        <h3>Sitio Web Personal</h3>
+        <h4>
+          Este es un proyecto donde desarrollé mi propio sitio web utilizando
+          HTML5, CSS y JS.
+        </h4>
+        <a href="https://leocervantes.me" target="_blank">Visita el Sitio</a>
+      </article>
+      <article>
+        <h3>Pagina para mi agencia</h3>
+        <h4>
+          Este es un aplicacion en react y nextjs que desarrolle para mi agencia
+          de Diseño Web.
+        </h4>
+        <a href="https://ceams.co" target="_blank">Visita el Sitio</a>
+      </article>
+    </section>
+
+    <section id="contacto">
+      <h2>Contacto</h2>
+      <p>
+        Puedes contactarme a través de mi correo personal:
+        <strong>leocerva29@gmail.com</strong>.
+      </p>
+      <form>
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" required /><br /><br />
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="email" required /><br /><br />
+        <label for="message">Mensaje:</label>
+        <textarea id="message" name="message" required></textarea><br /><br />
+        <input type="submit" value="Enviar" />
+      </form>
+    </section>
+
+    <section id="Q&A">
+      <h2>Preguntas a responder</h2>
+      <article>
+        <h3>¿Cuál es la diferencia entre Internet y la World Wide Web?</h3>
+        <p>
+          Internet es una red de compus conectadas globalmente, mientras que la
+          World Wide Web es un servicio que usa Internet, nos permite acceder a
+          paginas web
+        </p>
+      </article>
+      <article>
+        <h3>¿Cuáles son las partes de un URL?</h3>
+        <p>
+          Protocolo (https), dominio (google.com), ruta(/servicios),
+          parámetros(&color=azul) y fragmento(#proyectos)
+        </p>
+      </article>
+      <article>
+        <h3>
+          ¿Cuál es el propósito de los métodos HTTP: GET, HEAD, POST, PUT,
+          PATCH, DELETE?
+        </h3>
+        <p>
+          GET - Pide información al servidor HEAD - Pide el encabezado, los
+          metadatos POST - Envía datos nuevos PUT - Actualiza datos existentes
+          PATCH - Modifica solo una parte o seccion DELETE - Elimina un datos
+        </p>
+      </article>
+      <article>
+        <h3>¿Qué método HTTP se debe utilizar al enviar un formulario HTML?</h3>
+        <p>POST, es más seguro porque envia datos sin exponerlos en la URL</p>
+      </article>
+      <article>
+        <h3>
+          ¿Qué método HTTP se utiliza cuando a través de un navegador web se
+          accede a una página a través de un URL?
+        </h3>
+        <p>GET, porque solicita datos del servidor</p>
+      </article>
+      <article>
+        <h3>
+          Un servidor web devuelve una respuesta HTTP con código 200. ¿Qué
+          significa esto?
+        </h3>
+        <p>Significa que la solicitud fue exitosa y no hubo errores</p>
+      </article>
+      <article>
+        <h3>
+          ¿Es responsabilidad del desarrollador corregir un sitio web si un
+          usuario reporta un error 404?
+        </h3>
+        <p>
+          Normalmente si porque un error 404 indica que un recurso no fue
+          encontrado, se puede deber a un enlace roto, una URL mal escrita o
+          puede ser error del usuario si modifico la URL
+        </p>
+      </article>
+      <article>
+        <h3>
+          ¿Es responsabilidad del desarrollador corregir un sitio web si un
+          usuario reporta un error 500?
+        </h3>
+        <p>
+          Sí porque un error 500 indica un problema en el servidor que requiere
+          intervención del desarrollador
+        </p>
+      </article>
+      <article>
+        <h3>
+          ¿Qué significa que un atributo HTML5 esté depreciado o desaprobado?
+        </h3>
+        <p>
+          significa que sigue funcionando pero ya no se recomienda usarlo porque
+          hay mejores formas de hacer lo mismo, ademas de que podrían dejar de
+          funcionar en futuras versiones. Por ejemplo
+          <code>&lt;center&gt;</code>, para centrar texto, pero ahora es mejor
+          usar CSS con <code>text-align: center</code>
+        </p>
+      </article>
+      <article>
+        <h3>¿Cuáles son las diferencias principales entre HTML 4 y HTML5?</h3>
+        <p>
+          HTML5 tiene mas etiquetas semánticas, por lo que puedes tener una
+          estructura mas clara, tiene soporte multimedia nativo, mejoras en
+          formularios y APIs ampliadas para aplicaciones web
+        </p>
+      </article>
+      <article>
+        <h3>¿Qué componentes de estructura y estilo tiene una tabla?</h3>
+        <p>
+          <code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code>,
+          <code>&lt;th&gt;</code>, <code>&lt;td&gt;</code>,
+          <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code> y
+          <code>&lt;tfoot&gt;</code>. Para el estilo, se usa CSS como
+          <code>border</code>, <code>padding</code>, <code>text-align</code>,
+          <code>background-color</code>, <code>width</code> y
+          <code>height</code>
+        </p>
+      </article>
+      <article>
+        <h3>¿Cuáles son los principales controles de una forma HTML5?</h3>
+        <p>
+          <code>&lt;input&gt;</code> (text, password, email, number, radio,
+          checkbox, date, file, submit, reset, range, color, search),
+          <code>&lt;select&gt;</code>, <code>&lt;option&gt;</code>,
+          <code>&lt;button&gt;</code>, y <code>&lt;textarea&gt;</code>, tambien
+          <code>date</code>, <code>range</code>, y <code>color</code> para mayor
+          funcionalidad.
+        </p>
+      </article>
+      <article>
+        <h3>¿Qué tanto soporte HTML5 tiene el navegador que utilizas?</h3>
+        <p>
+          HTML5TEST is dead. No pude tomar la prueba de mi navegador en el sitio
+          web, pero utilizo firefox y tiene buen soporte para html5.
+        </p>
+      </article>
+      <article>
+        <h3>
+          Sobre el ciclo de vida y desarrollo de los sistemas de información:
+        </h3>
+        <h4>¿Cuál es el ciclo de vida de los sistemas de información?</h4>
+        <p>
+          Planificación, análisis, diseño, implementación, pruebas, despliegue y
+          mantenimiento
+        </p>
+      </article>
+      <article>
+        <h4>¿Cuál es el ciclo de desarrollo de sistemas de información?</h4>
+        <p>Requisitos, diseño, desarrollo, pruebas, y mantenimiento</p>
+      </article>
+    </section>
+
+    <footer>
+      <strong>
+        Editor HTML que utilicé:
+        <a href="https://www.jetbrains.com/" target="_blank">JetBrains</a>
+      </strong>
+    </footer>
+  </body>
+</html>
