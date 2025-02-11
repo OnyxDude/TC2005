@@ -31,5 +31,5 @@
 - **Guía PMBOK** como marco de referencia principal
 
 ## DUDAS
-Dado que una de las principales razones del fracaso de los proyectos es la falta de especificaciones claras y cambios en los requisitos, ¿qué estrategias recomienda para gestionar estos cambios sin comprometer la viabilidad del proyecto?
-¿Cómo podrían integrarse las áreas de conocimiento del PMBOK (como gestión de riesgos y comunicación) para mitigar las causas comunes de fracaso identificadas en los estudios, como la falta de involucramiento de usuarios o los cambios en los requerimientos?
+- Dado que una de las principales razones del fracaso de los proyectos es la falta de especificaciones claras y cambios en los requisitos, ¿qué estrategias recomienda para gestionar estos cambios sin comprometer la viabilidad del proyecto?
+- ¿Cómo podrían integrarse las áreas de conocimiento del PMBOK (como gestión de riesgos y comunicación) para mitigar las causas comunes de fracaso identificadas en los estudios, como la falta de involucramiento de usuarios o los cambios en los requerimientos?
