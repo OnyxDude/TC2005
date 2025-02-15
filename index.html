@@ -3,254 +3,623 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.min.css" />
-    <title>
-      Lab 1: Introducción a las aplicaciones web, HTML5 y ciclo de vida de los
-      sistemas de información.
-    </title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+
+    <title>Pagina de Leonardo Cervantes para Labs de Desarrollo Web</title>
   </head>
-  <body>
-    <header>
-      <h1>Pagina para Lab 1 - Leonardo Cervantes Perez</h1>
-      <nav>
-        <ul>
-          <li><a href="#acerca">Sobre mí</a></li>
-          <li><a href="#proyectos">Proyectos</a></li>
-          <li><a href="#contacto">Contacto</a></li>
-          <li><a href="#Q&A">Preguntas</a></li>
-        </ul>
-      </nav>
+  <body class="has-background-light">
+    <header class="hero is-primary">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Leonardo Cervantes Perez</h1>
+          <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-menu">
+              <div class="navbar-start">
+                <a class="navbar-item" href="#acerca">Sobre mí</a>
+                <a class="navbar-item" href="#proyectos">Proyectos</a>
+                <a class="navbar-item" href="#contacto">Contacto</a>
+
+                <a class="navbar-item" href="#Lab1">Laboratorio 1</a>
+                <a class="navbar-item" href="#Lab3">Laboratorio 3</a>
+                <a class="navbar-item" href="#Lab4">Laboratorio 4</a>
+                <a class="navbar-item" href="#Lab5">Laboratorio 5</a>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
     </header>
 
-    <section id="acerca">
-      <h2>Sobre mí</h2>
-      <h3>
-        Hola, me llamo Leonardo y me encanta la programación y el desarrollo
-        web, tambien disfruto mucho el Arte, ver metrajes, diseñar y dibujar.
-      </h3>
+    <section id="acerca" class="section">
+      <div class="container">
+        <h2 class="title">Sobre mí</h2>
+        <h3 class="subtitle">
+          Hola, me llamo Leonardo y me encanta la programación y el desarrollo
+          web, también disfruto mucho el Arte, ver metrajes, diseñar y dibujar.
+        </h3>
+      </div>
     </section>
 
-    <section id="proyectos">
-      <h2>Mis Proyectos Recientes</h2>
-
-      <article>
-        <h3>Sitio Web Personal</h3>
-        <h4>
-          Este es un proyecto donde desarrollé mi propio sitio web utilizando
-          HTML5, CSS y JS.
-        </h4>
-        <a href="https://leocervantes.me" target="_blank">Visita el Sitio</a>
-      </article>
-      <article>
-        <h3>Pagina para mi agencia</h3>
-        <h4>
-          Este es un aplicacion en react y nextjs que desarrolle para mi agencia
-          de Diseño Web.
-        </h4>
-        <a href="https://ceams.co" target="_blank">Visita el Sitio</a>
-      </article>
+    <section id="proyectos" class="section">
+      <div class="container">
+        <h2 class="title">Mis Proyectos Recientes</h2>
+        <div class="columns">
+          <div class="column">
+            <article class="box">
+              <h3 class="title is-4">Sitio Web Personal</h3>
+              <h4 class="subtitle is-6">
+                Este es un proyecto donde desarrollé mi propio sitio web
+                utilizando HTML5, CSS y JS.
+              </h4>
+              <a
+                class="button is-link"
+                href="https://leocervantes.me"
+                target="_blank"
+                >Visita el Sitio</a
+              >
+            </article>
+          </div>
+          <div class="column">
+            <article class="box">
+              <h3 class="title is-4">Página para mi agencia</h3>
+              <h4 class="subtitle is-6">
+                Esta es una aplicación en React y Next.js que desarrollé para mi
+                agencia de Diseño Web.
+              </h4>
+              <a class="button is-link" href="https://ceams.co" target="_blank"
+                >Visita el Sitio</a
+              >
+            </article>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="contacto">
-      <h2>Contacto</h2>
-      <p>
-        Puedes contactarme a través de mi correo personal:
-        <strong>leocerva29@gmail.com</strong>.
-      </p>
-      <form>
-        <label for="name">Nombre:</label>
-        <input type="text" id="name" name="name" required /><br /><br />
-        <label for="email">Correo electrónico:</label>
-        <input type="email" id="email" name="email" required /><br /><br />
-        <label for="message">Mensaje:</label>
-        <textarea id="message" name="message" required></textarea><br /><br />
-        <input type="submit" value="Enviar" />
-      </form>
+    <section id="contacto" class="section">
+      <div class="container">
+        <h2 class="title">Contacto</h2>
+        <p>
+          Puedes contactarme a través de mi correo personal:
+          <strong>leocerva29@gmail.com</strong>.
+        </p>
+        <form class="box">
+          <div class="field">
+            <label class="label" for="name">Nombre:</label>
+            <div class="control">
+              <input class="input" type="text" id="name" name="name" required />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label" for="email">Correo electrónico:</label>
+            <div class="control">
+              <input
+                class="input"
+                type="email"
+                id="email"
+                name="email"
+                required
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label" for="message">Mensaje:</label>
+            <div class="control">
+              <textarea
+                class="textarea"
+                id="message"
+                name="message"
+                required
+              ></textarea>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <input class="button is-primary" type="submit" value="Enviar" />
+            </div>
+          </div>
+        </form>
+      </div>
     </section>
 
-    <section id="Q&A">
-      <h2>Preguntas a responder</h2>
-      <article>
-        <h3>¿Cuál es la diferencia entre Internet y la World Wide Web?</h3>
-        <p>
-          Internet es una red de compus conectadas globalmente, mientras que la
-          World Wide Web es un servicio que usa Internet, nos permite acceder a
-          paginas web
-        </p>
-      </article>
-      <article>
-        <h3>¿Cuáles son las partes de un URL?</h3>
-        <p>
-          Protocolo (https), dominio (google.com), ruta(/servicios),
-          parámetros(&color=azul) y fragmento(#proyectos)
-        </p>
-      </article>
-      <article>
-        <h3>
-          ¿Cuál es el propósito de los métodos HTTP: GET, HEAD, POST, PUT,
-          PATCH, DELETE?
-        </h3>
-        <p>
-          GET - Pide información al servidor HEAD - Pide el encabezado, los
-          metadatos POST - Envía datos nuevos PUT - Actualiza datos existentes
-          PATCH - Modifica solo una parte o seccion DELETE - Elimina un datos
-        </p>
-      </article>
-      <article>
-        <h3>¿Qué método HTTP se debe utilizar al enviar un formulario HTML?</h3>
-        <p>POST, es más seguro porque envia datos sin exponerlos en la URL</p>
-      </article>
-      <article>
-        <h3>
-          ¿Qué método HTTP se utiliza cuando a través de un navegador web se
-          accede a una página a través de un URL?
-        </h3>
-        <p>GET, porque solicita datos del servidor</p>
-      </article>
-      <article>
-        <h3>
-          Un servidor web devuelve una respuesta HTTP con código 200. ¿Qué
-          significa esto?
-        </h3>
-        <p>Significa que la solicitud fue exitosa y no hubo errores</p>
-      </article>
-      <article>
-        <h3>
-          ¿Es responsabilidad del desarrollador corregir un sitio web si un
-          usuario reporta un error 404?
-        </h3>
-        <p>
-          Normalmente si porque un error 404 indica que un recurso no fue
-          encontrado, se puede deber a un enlace roto, una URL mal escrita o
-          puede ser error del usuario si modifico la URL
-        </p>
-      </article>
-      <article>
-        <h3>
-          ¿Es responsabilidad del desarrollador corregir un sitio web si un
-          usuario reporta un error 500?
-        </h3>
-        <p>
-          Sí porque un error 500 indica un problema en el servidor que requiere
-          intervención del desarrollador
-        </p>
-      </article>
-      <article>
-        <h3>
-          ¿Qué significa que un atributo HTML5 esté depreciado o desaprobado?
-        </h3>
-        <p>
-          significa que sigue funcionando pero ya no se recomienda usarlo porque
-          hay mejores formas de hacer lo mismo, ademas de que podrían dejar de
-          funcionar en futuras versiones. Por ejemplo
-          <code>&lt;center&gt;</code>, para centrar texto, pero ahora es mejor
-          usar CSS con <code>text-align: center</code>
-        </p>
-      </article>
-      <article>
-        <h3>¿Cuáles son las diferencias principales entre HTML 4 y HTML5?</h3>
-        <p>
-          HTML5 tiene mas etiquetas semánticas, por lo que puedes tener una
-          estructura mas clara, tiene soporte multimedia nativo, mejoras en
-          formularios y APIs ampliadas para aplicaciones web
-        </p>
-      </article>
-      <article>
-        <h3>¿Qué componentes de estructura y estilo tiene una tabla?</h3>
-        <p>
-          <code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code>,
-          <code>&lt;th&gt;</code>, <code>&lt;td&gt;</code>,
-          <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code> y
-          <code>&lt;tfoot&gt;</code>. Para el estilo, se usa CSS como
-          <code>border</code>, <code>padding</code>, <code>text-align</code>,
-          <code>background-color</code>, <code>width</code> y
-          <code>height</code>
-        </p>
-      </article>
-      <article>
-        <h3>¿Cuáles son los principales controles de una forma HTML5?</h3>
-        <p>
-          <code>&lt;input&gt;</code> (text, password, email, number, radio,
-          checkbox, date, file, submit, reset, range, color, search),
-          <code>&lt;select&gt;</code>, <code>&lt;option&gt;</code>,
-          <code>&lt;button&gt;</code>, y <code>&lt;textarea&gt;</code>, tambien
-          <code>date</code>, <code>range</code>, y <code>color</code> para mayor
-          funcionalidad.
-        </p>
-      </article>
-      <article>
-        <h3>¿Qué tanto soporte HTML5 tiene el navegador que utilizas?</h3>
-        <p>
-          HTML5TEST is dead. No pude tomar la prueba de mi navegador en el sitio
-          web, pero utilizo firefox y tiene buen soporte para html5.
-        </p>
-      </article>
-      <article>
-        <h3>
-          Sobre el ciclo de vida y desarrollo de los sistemas de información:
-        </h3>
-        <h4>¿Cuál es el ciclo de vida de los sistemas de información?</h4>
-        <p>
-          Planificación, análisis, diseño, implementación, pruebas, despliegue y
-          mantenimiento
-        </p>
-      </article>
-      <article>
-        <h4>¿Cuál es el ciclo de desarrollo de sistemas de información?</h4>
-        <p>Requisitos, diseño, desarrollo, pruebas, y mantenimiento</p>
-      </article>
-      <article>
-        <h4>
-          Como ingeniero de software ¿cuál es tu recomendación sobre el uso de
-          !important en un CSS?
-        </h4>
-        <p>
-          Evitar usarlo, por que si lo utilizas mucho puede ser dificil de leer
-          en una pagina o proyecto grande. Seria mejor usarlo en el ultimo de
-          los casos.
-        </p>
-      </article>
-      <article>
-        <h4>
-          Si se pone una imagen de fondo en una página HTML, ¿por qué debe
-          escogerse con cuidado?
-        </h4>
-        <p>
-          Porque una imagen puede no verse de la forma deseada si la resolucion
-          no es la adecuada o si no se estila correctamente y tambien puede
-          afectar el rendimiento de la página (si es muy pesada)
-        </p>
-      </article>
-      <article>
-        <h4>
-          ¿Cuál es tu recomendación al elegir unidades de estilo entre %, px y
-          pt?
-        </h4>
-        <p>
-          Usar <strong>%</strong> si se busca responsividad,
-          <strong>px</strong> para tamaños fijos, y es mejor evitar
-          <strong>pt</strong> porque es mejor usar em o px, y si no es para el
-          tamaño de la tipografia no es recomendado
-        </p>
-        <p></p>
-      </article>
-      <article>
-        <h4>
-          ¿Por qué el uso de una versión minimizada del CSS mejora el
-          rendimiento del sitio?
-        </h4>
-        <p>
-          Porque al reducir el tamaño del archivo CSS acelera la carga del
-          sitio, supongo que se renderiza mas rapido q la version normal
-        </p>
-      </article>
+    <section id="Labs" class="section">
+      <div class="container">
+        <h2 class="title">Laboratorios</h2>
+        <div class="content">
+          <!-- ------ LABORATORIO 1 ------ -->
+          <!-- --------------------------- -->
+          <section id="Lab1" class="section">
+            <div class="container">
+              <h2 class="title">Laboratorio 1</h2>
+              <article class="box">
+                <h3 class="title is-5">
+                  ¿Cuál es la diferencia entre Internet y la World Wide Web?
+                </h3>
+                <p>
+                  Internet es una red de computadoras conectadas globalmente,
+                  mientras que la World Wide Web es un servicio que usa
+                  Internet, nos permite acceder a páginas web.
+                </p>
+              </article>
+              <article class="box">
+                <h3 class="title is-5">¿Cuáles son las partes de un URL?</h3>
+                <p class="content">
+                  Protocolo (https), dominio (google.com), ruta(/servicios),
+                  parámetros(&color=azul) y fragmento(#proyectos)
+                </p>
+              </article>
+
+              <article class="box">
+                <h3 class="title is-5">
+                  ¿Cuál es el propósito de los métodos HTTP: GET, HEAD, POST,
+                  PUT, PATCH, DELETE?
+                </h3>
+                <p class="content">
+                  GET - Pide información al servidor<br />
+                  HEAD - Pide el encabezado, los metadatos<br />
+                  POST - Envía datos nuevos<br />
+                  PUT - Actualiza datos existentes<br />
+                  PATCH - Modifica solo una parte o sección<br />
+                  DELETE - Elimina un dato
+                </p>
+              </article>
+
+              <article class="box">
+                <h3 class="title is-5">
+                  ¿Qué método HTTP se debe utilizar al enviar un formulario
+                  HTML?
+                </h3>
+                <p class="content">
+                  POST, es más seguro porque envía datos sin exponerlos en la
+                  URL.
+                </p>
+              </article>
+
+              <article class="box">
+                <h3 class="title is-5">
+                  ¿Qué método HTTP se utiliza cuando a través de un navegador
+                  web se accede a una página a través de un URL?
+                </h3>
+                <p class="content">GET, porque solicita datos del servidor.</p>
+              </article>
+
+              <article class="box">
+                <h3 class="title is-5">
+                  Un servidor web devuelve una respuesta HTTP con código 200.
+                  ¿Qué significa esto?
+                </h3>
+                <p class="content">
+                  Significa que la solicitud fue exitosa y no hubo errores.
+                </p>
+              </article>
+
+              <article class="box">
+                <h3 class="title is-5">
+                  ¿Es responsabilidad del desarrollador corregir un sitio web si
+                  un usuario reporta un error 404?
+                </h3>
+                <p class="content">
+                  Normalmente sí, porque un error 404 indica que un recurso no
+                  fue encontrado. Se puede deber a un enlace roto, una URL mal
+                  escrita o puede ser error del usuario si modificó la URL.
+                </p>
+              </article>
+
+              <article class="box">
+                <h3 class="title is-5">
+                  ¿Es responsabilidad del desarrollador corregir un sitio web si
+                  un usuario reporta un error 500?
+                </h3>
+                <p class="content">
+                  Sí, porque un error 500 indica un problema en el servidor que
+                  requiere intervención del desarrollador.
+                </p>
+              </article>
+
+              <article class="box">
+                <h3 class="title is-5">
+                  ¿Qué significa que un atributo HTML5 esté depreciado o
+                  desaprobado?
+                </h3>
+                <p class="content">
+                  Significa que sigue funcionando pero ya no se recomienda
+                  usarlo porque hay mejores formas de hacer lo mismo, además de
+                  que podrían dejar de funcionar en futuras versiones. Por
+                  ejemplo,
+                  <code>&lt;center&gt;</code>, para centrar texto, pero ahora es
+                  mejor usar CSS con <code>text-align: center</code>.
+                </p>
+              </article>
+
+              <article class="box">
+                <h3 class="title is-5">
+                  ¿Cuáles son las diferencias principales entre HTML 4 y HTML5?
+                </h3>
+                <p class="content">
+                  HTML5 tiene más etiquetas semánticas, por lo que puedes tener
+                  una estructura más clara, tiene soporte multimedia nativo,
+                  mejoras en formularios y APIs ampliadas para aplicaciones web.
+                </p>
+              </article>
+
+              <article class="box">
+                <h3 class="title is-5">
+                  ¿Qué componentes de estructura y estilo tiene una tabla?
+                </h3>
+                <p class="content">
+                  <code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code>,
+                  <code>&lt;th&gt;</code>, <code>&lt;td&gt;</code>,
+                  <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code> y
+                  <code>&lt;tfoot&gt;</code>. Para el estilo, se usa CSS como
+                  <code>border</code>, <code>padding</code>,
+                  <code>text-align</code>, <code>background-color</code>,
+                  <code>width</code> y <code>height</code>.
+                </p>
+              </article>
+
+              <article class="box">
+                <h3 class="title is-5">
+                  ¿Cuáles son los principales controles de una forma HTML5?
+                </h3>
+                <p class="content">
+                  <code>&lt;input&gt;</code> (text, password, email, number,
+                  radio, checkbox, date, file, submit, reset, range, color,
+                  search), <code>&lt;select&gt;</code>,
+                  <code>&lt;option&gt;</code>, <code>&lt;button&gt;</code>, y
+                  <code>&lt;textarea&gt;</code>, también <code>date</code>,
+                  <code>range</code>, y <code>color</code> para mayor
+                  funcionalidad.
+                </p>
+              </article>
+
+              <article class="box">
+                <h3 class="title is-5">
+                  ¿Qué tanto soporte HTML5 tiene el navegador que utilizas?
+                </h3>
+                <p class="content">
+                  HTML5TEST is dead. No pude tomar la prueba de mi navegador en
+                  el sitio web, pero utilizo Firefox y tiene buen soporte para
+                  HTML5.
+                </p>
+              </article>
+
+              <article class="box">
+                <h3 class="title is-5">
+                  Sobre el ciclo de vida y desarrollo de los sistemas de
+                  información:
+                </h3>
+                <div class="content">
+                  <h4 class="subtitle is-6">
+                    ¿Cuál es el ciclo de vida de los sistemas de información?
+                  </h4>
+                  <p class="content">
+                    Planificación, análisis, diseño, implementación, pruebas,
+                    despliegue y mantenimiento.
+                  </p>
+                  <h4 class="subtitle is-6">
+                    ¿Cuál es el ciclo de desarrollo de sistemas de información?
+                  </h4>
+                  <p class="content">
+                    Requisitos, diseño, desarrollo, pruebas y mantenimiento.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- ------ LABORATORIO 3 ------ -->
+          <!-- --------------------------- -->
+          <section id="Lab3" class="section">
+            <div class="container">
+              <h2 class="title">Laboratorio 3</h2>
+              <article class="box">
+                <h4 class="subtitle is-6">
+                  Como ingeniero de software, ¿cuál es tu recomendación sobre el
+                  uso de !important en un CSS?
+                </h4>
+                <p class="content">
+                  Evitar usarlo, porque si lo utilizas mucho puede ser difícil
+                  de leer en una página o proyecto grande. Sería mejor usarlo en
+                  el último de los casos.
+                </p>
+              </article>
+
+              <article class="box">
+                <h4 class="subtitle is-6">
+                  Si se pone una imagen de fondo en una página HTML, ¿por qué
+                  debe escogerse con cuidado?
+                </h4>
+                <p class="content">
+                  Porque una imagen puede no verse de la forma deseada si la
+                  resolución no es la adecuada o si no se estila correctamente,
+                  y también puede afectar el rendimiento de la página (si es muy
+                  pesada).
+                </p>
+              </article>
+
+              <article class="box">
+                <h4 class="subtitle is-6">
+                  ¿Cuál es tu recomendación al elegir unidades de estilo entre
+                  %, px y pt?
+                </h4>
+                <p class="content">
+                  Usar <strong>%</strong> si se busca responsividad,
+                  <strong>px</strong> para tamaños fijos, y es mejor evitar
+                  <strong>pt</strong> porque es mejor usar <code>em</code> o
+                  <code>px</code>, y si no es para el tamaño de la tipografía no
+                  es recomendado.
+                </p>
+              </article>
+
+              <article class="box">
+                <h4 class="subtitle is-6">
+                  ¿Por qué el uso de una versión minimizada del CSS mejora el
+                  rendimiento del sitio?
+                </h4>
+                <p class="content">
+                  Porque al reducir el tamaño del archivo CSS, se acelera la
+                  carga del sitio. Supongo que se renderiza más rápido que la
+                  versión normal.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <!-- ------ LABORATORIO 4 ------ -->
+          <!-- --------------------------- -->
+          <section id="Lab4" class="section">
+            <div class="container">
+              <h2 class="title">Laboratorio 4</h2>
+              <article class="box">
+                <div class="buttons is-justify-content-space-between">
+                  <button
+                    class="button is-primary"
+                    onclick="tablaCuadradosCubos()"
+                  >
+                    Ejecutar Función 1
+                  </button>
+                  <button class="button is-success" onclick="sumaAleatoria()">
+                    Ejecutar Función 2
+                  </button>
+                  <button
+                    class="button is-info"
+                    onclick="alert(contador([-1, 0, 1, 2, -3, 0, 4]))"
+                  >
+                    Ejecutar Función 3
+                  </button>
+                  <button
+                    class="button is-primary"
+                    onclick="alert(promedios([
+                  [1, 2, 3],
+                  [4, 5, 6],
+                  [7, 8, 9],
+                  ]))"
+                  >
+                    Ejecutar Función 4
+                  </button>
+                  <button
+                    class="button is-success"
+                    onclick="alert(inverso(12345))"
+                  >
+                    Ejecutar Función 5
+                  </button>
+                  <button
+                    class="button is-info"
+                    onclick="alert(mayorDeEdad(17))"
+                  >
+                    Ejecutar Función 6
+                  </button>
+                </div>
+              </article>
+
+              <article class="box">
+                <h4 class="subtitle is-6">
+                  ¿Qué diferencias y semejanzas hay entre Java y JavaScript?
+                </h4>
+                <p class="content">
+                  <strong>Diferencias:</strong> Java es un lenguaje de
+                  programación compilado, y tiene clases y objetos, mientras que
+                  JavaScript es un lenguaje de programación interpretado y en
+                  vez de clases u objetos, tiene prototipos que son como todo a
+                  la vez. El principal uso de Java es para apps de servidor y de
+                  escritorio, mientras que JavaScript se usa para desarrollo web
+                  <br />
+                  <strong>Semejanzas:</strong> Ademas del nombre, ambos
+                  lenguajes tienen una sintaxis parecida (segun yo) y basada en
+                  C
+                </p>
+              </article>
+
+              <article class="box">
+                <h4 class="subtitle is-6">
+                  ¿Qué métodos tiene el objeto Date? (Menciona al menos 5)
+                </h4>
+                <p class="content">
+                  - <code>getDate()</code>: Devuelve el día <br />
+                  - <code>getMonth()</code>: Devuelve el mes <br />
+                  - <code>getFullYear()</code>: Devuelve el año <br />
+                  - <code>getHours()</code>: Devuelve la hora <br />
+                  - <code>getMinutes()</code>: Devuelve los minutos
+                </p>
+              </article>
+
+              <article class="box">
+                <h4 class="subtitle is-6">
+                  ¿Qué métodos tienen los arreglos? (Menciona al menos 5)
+                </h4>
+                <p class="content">
+                  - <code>push()</code>: Añade elementos al final del arreglo.
+                  <br />
+                  - <code>unshift()</code>: Añade elementos al inicio del
+                  arreglo. <br />
+                  - <code>pop()</code>: Elimina el último elemento del arreglo.
+                  <br />
+                  - <code>shift()</code>: Elimina el primer elemento del
+                  arreglo. <br />
+                  - <code>slice()</code>: Devuelve una parte del arreglo.
+                </p>
+              </article>
+
+              <article class="box">
+                <h4 class="subtitle is-6">
+                  ¿Cómo se declara una variable con alcance local dentro de una
+                  función?
+                </h4>
+                <p class="content">
+                  Se declara usando <code>const</code>, ya que esta variable
+                  solo va a existir dentro de la función y no puede ser accedida
+                  fuera de ella
+                </p>
+              </article>
+
+              <article class="box">
+                <h4 class="subtitle is-6">
+                  ¿Qué implicaciones tiene utilizar variables globales dentro de
+                  funciones?
+                </h4>
+                <p class="content">
+                  Puede llevar a problemas de mantenimiento y al momento de
+                  debugging, por que cualquier parte del código las puede
+                  modificar. Además hace que reutilizar codigo sea dificil y
+                  aumenta el riesgo de repetir nombres
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <!-- ------ LABORATORIO 5 ------ -->
+          <!-- --------------------------- -->
+          <section id="Lab5" class="section">
+            <div class="container">
+              <h2 class="title">Laboratorio 5</h2>
+
+              <article class="box">
+                <h4 class="subtitle is-6">Describe Material Design</h4>
+                <p class="content">
+                  Material Design es un sistema de diseño de google, por lo que
+                  he visto en su pagina, es parecido a una libreria de
+                  componentes, y te permiten agregar varias cosas como colores,
+                  iconos, tipografias, etc. para que tu pagina se vea mas
+                  atractiva. Creo que su principal uso va enfocado a UI/UX,
+                  tiene soporte para android, flutter y web
+                </p>
+              </article>
+            </div>
+          </section>
+        </div>
+      </div>
     </section>
 
-    <footer>
-      <strong>
-        Editor HTML que utilicé:
-        <a href="https://www.jetbrains.com/" target="_blank">JetBrains</a>
-      </strong>
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <strong>
+          Editor HTML que utilicé:
+          <a href="https://www.jetbrains.com/" target="_blank">JetBrains</a>
+        </strong>
+      </div>
     </footer>
   </body>
+
+  <!--<script src="scripts.js"></script>-->
+  <script>
+    // ----------------------- FUNCION 1 --------------------- //
+    // --------- Tabla de números, cuadrados y cubos --------- //
+    // ------------------------------------------------------- //
+    function tablaCuadradosCubos() {
+      const num = parseInt(prompt("Introduce un número:"));
+      if (isNaN(num)) {
+        alert("Por favor, ingresa un número válido.");
+        return;
+      }
+      document.write("<h2>Tabla de cuadrados y cubos</h2>");
+      document.write(
+        "<table border='1'><tr><th>Número</th><th>Cuadrado</th><th>Cubo</th></tr>"
+      );
+      for (let i = 1; i <= num; i++) {
+        document.write(
+          `<tr><td>${i}</td><td>${i ** 2}</td><td>${i ** 3}</td></tr>`
+        );
+      }
+      document.write("</table>");
+    }
+
+    // ---------------------- FUNCION 2 ---------------------- //
+    // --------- Suma aleatoria y tiempo de respuesta -------- //
+    // ------------------------------------------------------- //
+    function sumaAleatoria() {
+      const num1 = Math.floor(Math.random() * 100);
+      const num2 = Math.floor(Math.random() * 100);
+      const inicio = Date.now();
+      const respuesta = parseInt(prompt(`¿Cuánto es ${num1} + ${num2}?`));
+      const fin = Date.now();
+      const tiempo = (fin - inicio) / 1000;
+
+      if (respuesta === num1 + num2) {
+        alert(`¡Correcto! Tardaste ${tiempo} segundos.`);
+      } else {
+        alert(
+          `Incorrecto. La respuesta correcta era ${
+            num1 + num2
+          }. Tardaste ${tiempo} segundos.`
+        );
+      }
+    }
+
+    // ---------------------- FUNCION 3 ---------------------- //
+    // -- Contador de números negativos, ceros y positivos --- //
+    // ------------------------------------------------------- //
+    function contador(arr) {
+      let negativos = 0;
+      let ceros = 0;
+      let positivos = 0;
+
+      arr.forEach((num) => {
+        if (num < 0) negativos++;
+        else if (num === 0) ceros++;
+        else positivos++;
+      });
+
+      return `Arreglo: ${arr}\nNegativos: ${negativos}, Ceros: ${ceros}, Positivos: ${positivos}`;
+    }
+
+    // ---------------------- FUNCION 4 ---------------------- //
+    // ---------------- Promedios de una matriz -------------- //
+    // ------------------------------------------------------- //
+    function promedios(matriz) {
+      const promedios = matriz.map(
+        (fila) => fila.reduce((acc, n) => acc + n, 0) / fila.length
+      );
+      return `Matriz: ${JSON.stringify(matriz)}\nPromedios: ${promedios}`;
+    }
+
+    // ---------------------- FUNCION 5 ---------------------- //
+    // ----------------- Inverso de un número ---------------- //
+    // ------------------------------------------------------- //
+    function inverso(num) {
+      const inversoNum = parseInt(num.toString().split("").reverse().join(""));
+      return `Número: ${num}\nInverso: ${inversoNum}`;
+    }
+
+    // ---------------------- FUNCION 6 ---------------------- //
+    // -------------------- personalizado -------------------- //
+    // ------------------------------------------------------- //
+    function mayorDeEdad(edad) {
+      class Usuario {
+        constructor(nombre, edad) {
+          this.nombre = nombre;
+          this.edad = edad;
+        }
+        mostrarInfo() {
+          return `Usuario: ${this.nombre}, Edad: ${this.edad}`;
+        }
+        esMayorDeEdad() {
+          return this.edad >= 18 ? "Es mayor de edad." : "NO es mayor de edad.";
+        }
+      }
+      let usuario = new Usuario("Carlos", edad);
+      return usuario.mostrarInfo() + "\n" + usuario.esMayorDeEdad();
+    }
+  </script>
 </html>
