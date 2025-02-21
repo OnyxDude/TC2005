@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tienda de Productos</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f9;
+        color: #333;
+      }
+      h1 {
+        text-align: center;
+        color: #444;
+      }
+      .product {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .product h2 {
+        margin-top: 0;
+        color: #555;
+      }
+      .product p {
+        margin: 5px 0;
+      }
+      .product label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      .product input {
+        width: 60px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+      .total {
+        font-weight: bold;
+        text-align: right;
+        margin-top: 20px;
+      }
+      .highlight {
+        color: red;
+        font-weight: bold;
+      }
+      .tooltip {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        padding: 5px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tienda de Productos</h1>
+    <div class="product">
+      <h2>Producto 1</h2>
+      <p>Precio: $100</p>
+      <label for="product1">Cantidad:</label>
+      <input type="number" id="product1" value="0" min="0" max="10" />
+      <span class="tooltip" id="tooltip1"
+        >Ingrese la cantidad deseada de Producto 1</span
+      >
+    </div>
+    <div class="product">
+      <h2>Producto 2</h2>
+      <p>Precio: $200</p>
+      <label for="product2">Cantidad:</label>
+      <input type="number" id="product2" value="0" min="0" max="10" />
+      <span class="tooltip" id="tooltip2"
+        >Ingrese la cantidad deseada de Producto 2</span
+      >
+    </div>
+    <div class="product">
+      <h2>Producto 3</h2>
+      <p>Precio: $300</p>
+      <label for="product3">Cantidad:</label>
+      <input type="number" id="product3" value="0" min="0" max="10" />
+      <span class="tooltip" id="tooltip3"
+        >Ingrese la cantidad deseada de Producto 3</span
+      >
+    </div>
+    <div class="total">
+      <p>Total: $<span id="total">0</span></p>
+      <p>IVA (16%): $<span id="iva">0</span></p>
+    </div>
+    <script>
+      const product1 = document.getElementById("product1");
+      const product2 = document.getElementById("product2");
+      const product3 = document.getElementById("product3");
+      const totalElement = document.getElementById("total");
+      const ivaElement = document.getElementById("iva");
+      const tooltip1 = document.getElementById("tooltip1");
+      const tooltip2 = document.getElementById("tooltip2");
+      const tooltip3 = document.getElementById("tooltip3");
+
+      function calculateTotal() {
+        const price1 = 100;
+        const price2 = 200;
+        const price3 = 300;
+        const quantity1 = parseInt(product1.value) || 0;
+        const quantity2 = parseInt(product2.value) || 0;
+        const quantity3 = parseInt(product3.value) || 0;
+        const subtotal =
+          price1 * quantity1 + price2 * quantity2 + price3 * quantity3;
+        const iva = subtotal * 0.16;
+        totalElement.textContent = subtotal.toFixed(2);
+        ivaElement.textContent = iva.toFixed(2);
+      }
+
+      function showTooltip(event, tooltip) {
+        tooltip.style.display = "block";
+        tooltip.style.left = event.pageX + "px";
+        tooltip.style.top = event.pageY + "px";
+      }
+
+      function hideTooltip(tooltip) {
+        tooltip.style.display = "none";
+      }
+
+      product1.addEventListener("input", calculateTotal);
+      product2.addEventListener("input", calculateTotal);
+      product3.addEventListener("input", calculateTotal);
+
+      product1.addEventListener("focus", (event) =>
+        showTooltip(event, tooltip1)
+      );
+      product1.addEventListener("blur", () => hideTooltip(tooltip1));
+      product2.addEventListener("focus", (event) =>
+        showTooltip(event, tooltip2)
+      );
+      product2.addEventListener("blur", () => hideTooltip(tooltip2));
+      product3.addEventListener("focus", (event) =>
+        showTooltip(event, tooltip3)
+      );
+      product3.addEventListener("blur", () => hideTooltip(tooltip3));
+
+      document.querySelector("h1").addEventListener("mouseover", function () {
+        this.classList.add("highlight");
+      });
+
+      document.querySelector("h1").addEventListener("mouseout", function () {
+        this.classList.remove("highlight");
+      });
+    </script>
+  </body>
+</html>
