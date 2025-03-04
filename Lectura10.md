@@ -2,13 +2,113 @@
 
 ## Definiciones básicas
 
-- **INNER JOIN:** Combina registros de dos tablas basándose en la igualdad de valores en un campo común. Solo se incluyen los registros que tienen coincidencias en ambas tablas.
-- **LEFT JOIN (LEFT OUTER JOIN):** Incluye todos los registros de la tabla izquierda y los registros coincidentes de la tabla derecha. Si no hay coincidencias, se incluyen valores nulos para la tabla derecha.
-- **RIGHT JOIN (RIGHT OUTER JOIN):** Incluye todos los registros de la tabla derecha y los registros coincidentes de la tabla izquierda. Si no hay coincidencias, se incluyen valores nulos para la tabla izquierda.
-- **CROSS JOIN:** Realiza un producto cartesiano entre dos tablas, combinando cada fila de la primera tabla con cada fila de la segunda tabla.
-- **SELF JOIN:** Combina una tabla consigo misma, comparando valores de dos columnas con el mismo tipo de datos.
+- **SQL (Structured Query Language):** Lenguaje estándar utilizado para gestionar y manipular bases de datos relacionales. Permite realizar consultas, actualizaciones, inserciones y eliminaciones de datos.
+- **Álgebra Relacional:** Conjunto de operaciones matemáticas que se aplican a relaciones (tablas) para obtener nuevas relaciones. Es la base teórica de las consultas SQL.
 
-## Sintaxis básica de JOINs
+## Equivalencia entre Álgebra Relacional y SQL
+
+### Consulta de una relación cualquiera
+- **Álgebra Relacional:** `materiales`
+- **SQL:** 
+  ```sql
+  SELECT * FROM materiales;
+  ```
+
+### Selección
+- **Álgebra Relacional:** `SL{clave=1000}(materiales)`
+- **SQL:** 
+  ```sql
+  SELECT * FROM materiales WHERE clave = 1000;
+  ```
+
+### Proyección
+- **Álgebra Relacional:** `PR{clave, rfc, fecha}(entregan)`
+- **SQL:** 
+  ```sql
+  SELECT clave, rfc, fecha FROM entregan;
+  ```
+
+### Reunión Natural (Natural Join)
+- **Álgebra Relacional:** `entregan JN proveedores`
+- **SQL:** 
+  ```sql
+  SELECT * FROM entregan, proveedores WHERE entregan.rfc = proveedores.rfc;
+  ```
+
+### Reunión con Criterio Específico (Theta Join)
+- **Álgebra Relacional:** `entregan JN{entregan.numero <= proyectos.numero} proyectos`
+- **SQL:** 
+  ```sql
+  SELECT * FROM entregan, proyectos WHERE entregan.numero <= proyectos.numero;
+  ```
+
+### Unión
+- **Álgebra Relacional:** `SL{clave=1000}(entregan) UN SL{clave=2000}(entregan)`
+- **SQL:** 
+  ```sql
+  (SELECT * FROM entregan WHERE clave = 1000)
+  UNION
+  (SELECT * FROM entregan WHERE clave = 2000);
+  ```
+
+### Intersección
+- **Álgebra Relacional:** `PR{clave}(SL{numero=5001}(entregan)) IN PR{clave}(SL{numero=5018}(entregan))`
+- **SQL:** 
+  ```sql
+  (SELECT clave FROM entregan WHERE numero = 5001)
+  INTERSECT
+  (SELECT clave FROM entregan WHERE numero = 5018);
+  ```
+
+### Diferencia
+- **Álgebra Relacional:** `entregan - SL{clave=1000}(entregan)`
+- **SQL:** 
+  ```sql
+  (SELECT * FROM entregan)
+  MINUS
+  (SELECT * FROM entregan WHERE clave = 1000);
+  ```
+
+### Producto Cartesiano
+- **Álgebra Relacional:** `entregan X materiales`
+- **SQL:** 
+  ```sql
+  SELECT * FROM entregan, materiales;
+  ```
+
+## Agregaciones en SQL
+
+### Funciones Agregadas
+- **SUM(expresión):** Suma de los valores de una expresión.
+- **AVG(expresión):** Promedio de los valores de una expresión.
+- **MIN(expresión):** Valor mínimo de una expresión.
+- **MAX(expresión):** Valor máximo de una expresión.
+- **COUNT(*):** Número de tuplas (filas) en una relación.
+- **COUNT(expresión):** Número de tuplas donde la expresión no es nula.
+- **STD(expresión):** Desviación estándar de los valores de una expresión.
+
+### Ejemplos de Agregaciones
+- **Cantidad vendida por producto:**
+  ```sql
+  SELECT codproducto, SUM(cantidad) 
+  FROM ventas 
+  GROUP BY codproducto;
+  ```
+- **Cantidad vendida por producto y fecha:**
+  ```sql
+  SELECT codproducto, fecha, SUM(cantidad) 
+  FROM ventas 
+  GROUP BY codproducto, fecha;
+  ```
+- **Ventas por cliente y fecha con condiciones:**
+  ```sql
+  SELECT nocliente, fecha, SUM(cantidad), SUM(precioventa * cantidad), AVG(cantidad), MIN(precioventa), MAX(precioventa)
+  FROM ventas
+  GROUP BY nocliente, fecha
+  HAVING SUM(precioventa * cantidad) > 200;
+  ```
+
+## JOINs en SQL
 
 ### INNER JOIN
 - **Sintaxis:**
@@ -20,85 +120,44 @@
   ```
 - **Ejemplo:**
   ```sql
-  SELECT NombreCategoria, NombreProducto
+  SELECT NombreCategoria, NombreProducto 
   FROM Categorias 
   INNER JOIN Productos 
   ON Categorias.IDCategoria = Productos.IDCategoria;
   ```
 
 ### LEFT JOIN y RIGHT JOIN
-- **Sintaxis LEFT JOIN:**
+- **LEFT JOIN:** Incluye todos los registros de la tabla izquierda, incluso si no hay coincidencias en la tabla derecha.
+- **RIGHT JOIN:** Incluye todos los registros de la tabla derecha, incluso si no hay coincidencias en la tabla izquierda.
+- **Ejemplo de LEFT JOIN:**
   ```sql
-  SELECT campos 
-  FROM tabla1 
-  LEFT JOIN tabla2 
-  ON tabla1.campo1 = tabla2.campo2;
+  SELECT Facturas.*, Albaranes.* 
+  FROM Facturas 
+  LEFT JOIN Albaranes 
+  ON Facturas.IdAlbaran = Albaranes.IdAlbaran;
   ```
-- **Sintaxis RIGHT JOIN:**
+
+### Autocombinación (Self Join)
+- **Ejemplo:**
   ```sql
-  SELECT campos 
-  FROM tabla1 
-  RIGHT JOIN tabla2 
-  ON tabla1.campo1 = tabla2.campo2;
+  SELECT t.num_emp, t.nombre, t.puesto, t.num_sup, s.nombre, s.puesto
+  FROM empleados AS t, empleados AS s
+  WHERE t.num_sup = s.num_emp;
+  ```
+
+### Combinaciones no Comunes
+- **Ejemplo:**
+  ```sql
+  SELECT grados.grado, empleados.nombre, empleados.salario, empleados.puesto
+  FROM empleados, grados
+  WHERE empleados.salario BETWEEN grados.salarioinferior AND grados.salariosuperior
+  ORDER BY grados.grado, empleados.salario;
   ```
 
 ### CROSS JOIN
-- **Sintaxis:**
-  ```sql
-  SELECT campos 
-  FROM tabla1 
-  CROSS JOIN tabla2;
-  ```
 - **Ejemplo:**
   ```sql
   SELECT Autores.Nombre, Libros.Titulo 
   FROM Autores 
   CROSS JOIN Libros;
-  ```
-
-### SELF JOIN
-- **Sintaxis:**
-  ```sql
-  SELECT alias1.columna, alias2.columna 
-  FROM tabla AS alias1, tabla AS alias2 
-  WHERE alias1.campo = alias2.campo;
-  ```
-- **Ejemplo:**
-  ```sql
-  SELECT t.num_emp, t.nombre, t.puesto, s.nombre AS Supervisor 
-  FROM empleados AS t, empleados AS s 
-  WHERE t.num_sup = s.num_emp;
-  ```
-
-## Combinaciones no comunes
-
-- **BETWEEN:** Combina registros basándose en un rango de valores.
-  ```sql
-  SELECT grados.grado, empleados.nombre, empleados.salario 
-  FROM empleados, grados 
-  WHERE empleados.salario BETWEEN grados.salarioinferior AND grados.salariosuperior;
-  ```
-
-- **GROUP BY y AVG:** Agrupa registros y calcula el promedio.
-  ```sql
-  SELECT grados.grado, AVG(empleados.salario) 
-  FROM empleados, grados 
-  WHERE empleados.salario BETWEEN grados.salarioinferior AND grados.salariosuperior 
-  GROUP BY grados.grado;
-  ```
-
-## Consultas de Autocombinación (SELF JOIN)
-
-- **Ejemplo 1:** Obtener parejas de autores para cada libro.
-  ```sql
-  SELECT A.Codigo, A.Autor, B.Autor 
-  FROM Autores A, Autores B 
-  WHERE A.Codigo = B.Codigo AND A.Autor < B.Autor;
-  ```
-
-- **Ejemplo 2:** Obtener el nombre del empleado y su jefe.
-  ```sql
-  SELECT Emple.Nombre, Jefes.Nombre 
-  FROM Empleados Emple, Empleados Jefes 
-  WHERE Emple.SuJefe = Jefes.Id;
   ```
