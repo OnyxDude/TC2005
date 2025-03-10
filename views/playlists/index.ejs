@@ -1,0 +1,36 @@
+<%- include('../partials/header') %>
+
+<div class="container mx-auto px-4 py-8">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-spotify-green"><%= titulo %></h1>
+        
+        <a href="/playlists/nuevo" class="btn-spotify bg-spotify-green hover:bg-opacity-80 text-white py-2 px-4 rounded-full font-medium transition-all duration-200 flex items-center">
+            <i class="fas fa-plus mr-2"></i>Crear nueva playlist
+        </a>
+    </div>
+    
+    <% if (playlists.length > 0) { %>
+        <!-- Grid view -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <% playlists.forEach(playlist => { %>
+                <a href="/playlists/<%= playlist.id %>" class="card bg-gray-800 hover:bg-gray-700 rounded-lg p-5 shadow-lg flex flex-col transition-all duration-200 border border-gray-700">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-spotify-green"><%= playlist.nombre %></h3>
+                    </div>
+                    <p class="text-spotify-gray mb-2"><%= playlist.descripcion %></p>
+                    <p class="text-spotify-gray mt-auto"><span class="text-sm opacity-70">Plataforma:</span> <%= playlist.plataformaId %></p>
+                    <p class="text-spotify-gray"><span class="text-sm opacity-70">Canciones:</span> <%= playlist.canciones.length %></p>
+                </a>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <div class="bg-gray-800 rounded-lg p-10 text-center border border-gray-700">
+            <p class="text-spotify-gray mb-6">No hay playlists disponibles.</p>
+            <a href="/playlists/nuevo" class="btn-spotify bg-spotify-green hover:bg-opacity-80 text-white py-2 px-4 rounded-full font-medium transition-all duration-200 inline-flex items-center">
+                <i class="fas fa-music mr-2"></i> Crea tu primera playlist
+            </a>
+        </div>
+    <% } %>
+</div>
+
+<%- include('../partials/footer') %>

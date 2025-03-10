@@ -38,7 +38,14 @@
         .card {
             @apply bg-spotify-darkgray rounded-lg p-4 hover:bg-opacity-80;
         }
+        .nav-link {
+            @apply text-spotify-white hover:text-spotify-green transition-colors duration-200;
+        }
+        .nav-link.active {
+            @apply text-spotify-green font-medium;
+        }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
@@ -46,10 +53,19 @@
     <div class="min-h-screen flex flex-col">
         <nav class="navbar flex justify-between items-center">
             <div class="text-spotify-green text-xl font-bold">Spopify</div>
-            <div class="flex space-x-4">
-                <a href="/" class="text-spotify-white hover:text-spotify-green">Inicio</a>
-                <a href="/canciones" class="text-spotify-white hover:text-spotify-green">Canciones</a>
-                <a href="/plataformas" class="text-spotify-white hover:text-spotify-green">Plataformas</a>
+            <div class="flex space-x-6">
+                <a href="/" class="nav-link flex items-center">
+                    <i class="fas fa-home mr-1"></i> Inicio
+                </a>
+                <a href="/canciones" class="nav-link flex items-center">
+                    <i class="fas fa-music mr-1"></i> Canciones
+                </a>
+                <a href="/playlists" class="nav-link flex items-center">
+                    <i class="fas fa-list-ul mr-1"></i> Playlists
+                </a>
+                <a href="/plataformas" class="nav-link flex items-center">
+                    <i class="fas fa-podcast mr-1"></i> Plataformas
+                </a>
             </div>
         </nav>
         

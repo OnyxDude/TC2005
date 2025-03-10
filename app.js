@@ -13,6 +13,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const rutasCanciones = require('./routes/canciones.routes');
 const rutasPlataformas = require('./routes/plataformas.routes');
+const rutasPlaylists = require('./routes/playlists.routes');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -27,6 +28,7 @@ app.get('/', (request, response, next) => {
 
 app.use('/canciones', rutasCanciones);
 app.use('/plataformas', rutasPlataformas);
+app.use('/playlists', rutasPlaylists);
 
 app.use((req, res, next) => {
     res.status(404).render('404', { title: 'Página no encontrada' });

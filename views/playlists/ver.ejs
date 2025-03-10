@@ -1,0 +1,59 @@
+<%- include('../partials/header') %>
+
+<div class="container mx-auto px-4 py-8">
+    <div class="flex items-center mb-8">
+        <a href="/playlists" class="text-spotify-gray hover:text-white mr-4">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 class="text-3xl font-bold text-spotify-green"><%= playlist.nombre %></h1>
+    </div>
+    
+    <div class="bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-700">
+        <div class="mb-6 pb-6 border-b border-gray-700">
+            <p class="text-spotify-gray mb-4"><%= playlist.descripcion %></p>
+            <div class="flex items-center">
+                <span class="text-white mr-2">Plataforma:</span> 
+                <a href="<%= playlist.plataforma.url %>" target="_blank" class="text-spotify-green hover:underline flex items-center">
+                    <%= playlist.plataforma.nombre %> 
+                    <i class="fas fa-external-link-alt ml-1 text-xs"></i>
+                </a>
+            </div>
+        </div>
+        
+        <h2 class="text-xl font-bold text-white mb-4">Canciones (<%= playlist.canciones.length %>)</h2>
+        
+        <% if (playlist.canciones.length > 0) { %>
+            <div class="bg-gray-900 rounded-lg overflow-hidden">
+                <table class="min-w-full">
+                    <thead>
+                        <tr class="bg-gray-800">
+                            <th class="px-6 py-3 text-left text-xs font-medium text-spotify-green uppercase tracking-wider">#</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-spotify-green uppercase tracking-wider">Título</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-spotify-green uppercase tracking-wider">Artista</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-spotify-green uppercase tracking-wider">Álbum</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-spotify-green uppercase tracking-wider">Año</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-800">
+                        <% playlist.canciones.forEach((cancion, index) => { %>
+                            <tr class="hover:bg-gray-700">
+                                <td class="px-6 py-3 whitespace-nowrap text-sm font-medium text-white"><%= index + 1 %></td>
+                                <td class="px-6 py-3 whitespace-nowrap text-sm text-white"><%= cancion.titulo %></td>
+                                <td class="px-6 py-3 whitespace-nowrap text-sm text-spotify-gray"><%= cancion.artista %></td>
+                                <td class="px-6 py-3 whitespace-nowrap text-sm text-spotify-gray"><%= cancion.album %></td>
+                                <td class="px-6 py-3 whitespace-nowrap text-sm text-spotify-gray"><%= cancion.año %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        <% } else { %>
+            <div class="bg-gray-900 rounded-lg p-6 text-center">
+                <p class="text-spotify-gray">Esta playlist aún no tiene canciones.</p>
+                <a href="/playlists/nuevo" class="mt-4 inline-block text-spotify-green hover:underline">Editar playlist para añadir canciones</a>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

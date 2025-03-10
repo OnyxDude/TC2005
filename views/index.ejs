@@ -5,22 +5,48 @@
     <p class="text-xl text-spotify-gray mb-6">Descubre y explora tu música favorita</p>
     
     <div class="flex justify-center gap-4 mb-8">
-        <a href="/canciones" class="btn-spotify">Ver canciones</a>
-        <a href="/plataformas" class="btn-spotify">Ver plataformas</a>
+        <a href="/canciones" class="btn-spotify bg-spotify-green text-white py-2 px-6 rounded-full font-medium transition-all duration-200 flex items-center">
+            <i class="fas fa-music mr-2"></i> Ver canciones
+        </a>
+        <a href="/playlists" class="btn-spotify bg-spotify-green text-white py-2 px-6 rounded-full font-medium transition-all duration-200 flex items-center">
+            <i class="fas fa-list-ul mr-2"></i> Explorar playlists
+        </a>
+        <a href="/plataformas" class="btn-spotify bg-spotify-green text-white py-2 px-6 rounded-full font-medium transition-all duration-200 flex items-center">
+            <i class="fas fa-podcast mr-2"></i> Ver plataformas
+        </a>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-        <div class="card">
+    <!-- Feature cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
+        <div class="card bg-gray-800 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-700">
+            <div class="text-center mb-4">
+                <i class="fas fa-music text-spotify-green text-4xl mb-4"></i>
+            </div>
             <h3 class="text-spotify-green text-xl font-bold mb-2">Descubre nueva música</h3>
-            <p>Explora las últimas canciones añadidas a nuestra colección</p>
+            <p class="text-spotify-gray">Explora las últimas canciones añadidas a nuestra colección</p>
+            <div class="mt-4">
+                <a href="/canciones" class="inline-block text-spotify-green hover:underline">Ver todas las canciones →</a>
+            </div>
         </div>
-        <div class="card">
+        <div class="card bg-gray-800 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-700">
+            <div class="text-center mb-4">
+                <i class="fas fa-list-ul text-spotify-green text-4xl mb-4"></i>
+            </div>
             <h3 class="text-spotify-green text-xl font-bold mb-2">Crea playlists</h3>
-            <p>Organiza tus canciones favoritas en playlists personalizadas</p>
+            <p class="text-spotify-gray">Organiza tus canciones favoritas en playlists personalizadas</p>
+            <div class="mt-4">
+                <a href="/playlists/nuevo" class="inline-block text-spotify-green hover:underline">Crear nueva playlist →</a>
+            </div>
         </div>
-        <div class="card">
-            <h3 class="text-spotify-green text-xl font-bold mb-2">Comparte con amigos</h3>
-            <p>Comparte tus descubrimientos musicales con tus amigos</p>
+        <div class="card bg-gray-800 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-700">
+            <div class="text-center mb-4">
+                <i class="fas fa-podcast text-spotify-green text-4xl mb-4"></i>
+            </div>
+            <h3 class="text-spotify-green text-xl font-bold mb-2">Explora plataformas</h3>
+            <p class="text-spotify-gray">Descubre diferentes plataformas de streaming musical</p>
+            <div class="mt-4">
+                <a href="/plataformas" class="inline-block text-spotify-green hover:underline">Ver plataformas →</a>
+            </div>
         </div>
     </div>
 </div>
