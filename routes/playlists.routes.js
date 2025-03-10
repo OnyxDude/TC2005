@@ -2,16 +2,21 @@ const express = require('express');
 const router = express.Router();
 const playlistsController = require('../controllers/playlists.controller');
 
+// Middleware de autenticación
+const isAuth = (req, res, next) => {
+    if (!req.session.isLoggedIn) {
+        res.cookie('redirectTo', req.originalUrl, { httpOnly: true });
+        return res.redirect('/');
+    }
+    next();
+};
+
 // Route to display all playlists
 router.get('/', playlistsController.getAll);
 
-// Route to display the form for creating a new playlist
-router.get('/nuevo', playlistsController.getNew);
-
-// Route to process a new playlist
-router.post('/nuevo', playlistsController.postNew);
-
-// Route to view a specific playlist (must be last to avoid conflicts)
-router.get('/:id', playlistsController.getPlaylist);
+// Protected routes - require authentication
+router.get('/nuevo', isAuth, playlistsController.getNew);
+router.post('/nuevo', isAuth, playlistsController.postNew);
+router.get('/:id', isAuth, playlistsController.getPlaylist);
 
 module.exports = router;

@@ -53,7 +53,7 @@
     <div class="min-h-screen flex flex-col">
         <nav class="navbar flex justify-between items-center">
             <div class="text-spotify-green text-xl font-bold">Spopify</div>
-            <div class="flex space-x-6">
+            <div class="flex items-center space-x-6">
                 <a href="/" class="nav-link flex items-center">
                     <i class="fas fa-home mr-1"></i> Inicio
                 </a>
@@ -66,7 +66,28 @@
                 <a href="/plataformas" class="nav-link flex items-center">
                     <i class="fas fa-podcast mr-1"></i> Plataformas
                 </a>
+                
+                <% if (isLoggedIn) { %>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-spotify-gray">Bienvenido, <%= userName %></span>
+                        <form action="/auth/logout" method="POST" class="inline">
+                            <button type="submit" class="nav-link flex items-center">
+                                <i class="fas fa-sign-out-alt mr-1"></i> Cerrar sesión
+                            </button>
+                        </form>
+                    </div>
+                <% } else { %>
+                    <div class="flex items-center space-x-2">
+                        <a href="/auth/signin" class="btn-spotify">
+                            <i class="fas fa-sign-in-alt mr-1"></i> Iniciar sesión
+                        </a>
+                        <a href="/auth/signup" class="text-spotify-green hover:underline">
+                            Registrarse
+                        </a>
+                    </div>
+                <% } %>
             </div>
         </nav>
         
         <main class="flex-grow p-6">
+          
