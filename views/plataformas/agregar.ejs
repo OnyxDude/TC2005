@@ -1,0 +1,54 @@
+<%- include('../partials/header') %>
+
+<div class="container mx-auto px-4 py-8">
+    <div class="flex items-center mb-8">
+        <a href="/plataformas" class="text-spotify-gray hover:text-white mr-4">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 class="text-3xl font-bold text-spotify-green">Agregar Plataforma</h1>
+    </div>
+    
+    <div class="bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-700 max-w-2xl mx-auto">
+        <% if (locals.error) { %>
+            <div class="bg-red-500 bg-opacity-20 border border-red-500 text-red-300 px-4 py-3 rounded mb-4">
+                <p><%= error %></p>
+            </div>
+        <% } %>
+        
+        <form action="/plataformas/agregar" method="POST" class="space-y-6">
+            <div class="form-group">
+                <label for="nombre" class="block text-spotify-gray mb-2 font-medium">Nombre de la Plataforma *</label>
+                <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    required
+                    class="w-full bg-gray-900 border border-gray-700 rounded-md py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-spotify-green"
+                    placeholder="Nombre de la Plataforma"
+                >
+            </div>
+            
+            <div class="form-group">
+                <label for="url" class="block text-spotify-gray mb-2 font-medium">URL</label>
+                <input
+                    type="text"
+                    id="url"
+                    name="url"
+                    class="w-full bg-gray-900 border border-gray-700 rounded-md py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-spotify-green"
+                    placeholder="https://ejemplo.com"
+                >
+            </div>
+            
+            <div class="flex justify-end pt-4 border-t border-gray-700">
+                <a href="/plataformas" class="btn-secondary bg-transparent border border-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-full font-medium transition-all duration-200 mr-4">
+                    Cancelar
+                </a>
+                <button type="submit" class="btn-spotify bg-spotify-green hover:bg-opacity-80 text-white py-2 px-6 rounded-full font-medium transition-all duration-200">
+                    Guardar plataforma
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

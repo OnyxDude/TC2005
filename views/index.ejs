@@ -1,0 +1,28 @@
+<%- include('partials/header') %>
+
+<div class="text-center">
+    <h1 class="text-4xl font-bold text-spotify-green mb-4">Bienvenido a nuestra aplicación</h1>
+    <p class="text-xl text-spotify-gray mb-6">Descubre y explora tu música favorita</p>
+    
+    <div class="flex justify-center gap-4 mb-8">
+        <a href="/canciones" class="btn-spotify">Ver canciones</a>
+        <a href="/plataformas" class="btn-spotify">Ver plataformas</a>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div class="card">
+            <h3 class="text-spotify-green text-xl font-bold mb-2">Descubre nueva música</h3>
+            <p>Explora las últimas canciones añadidas a nuestra colección</p>
+        </div>
+        <div class="card">
+            <h3 class="text-spotify-green text-xl font-bold mb-2">Crea playlists</h3>
+            <p>Organiza tus canciones favoritas en playlists personalizadas</p>
+        </div>
+        <div class="card">
+            <h3 class="text-spotify-green text-xl font-bold mb-2">Comparte con amigos</h3>
+            <p>Comparte tus descubrimientos musicales con tus amigos</p>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

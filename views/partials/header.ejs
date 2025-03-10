@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= typeof title !== 'undefined' ? title : 'Your App' %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        spotify: {
+                            green: '#1DB954',
+                            black: '#191414',
+                            white: '#FFFFFF',
+                            gray: '#B3B3B3',
+                            darkgray: '#535353'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        body {
+            @apply bg-spotify-black text-spotify-white;
+        }
+        .btn-spotify {
+            @apply bg-spotify-green text-spotify-black font-bold py-2 px-4 rounded hover:bg-opacity-80;
+        }
+        .navbar {
+            @apply bg-black p-4;
+        }
+        .sidebar {
+            @apply bg-black w-64 p-4 h-screen;
+        }
+        .card {
+            @apply bg-spotify-darkgray rounded-lg p-4 hover:bg-opacity-80;
+        }
+    </style>
+</head>
+<body>
+    <header>
+    </header>
+    <div class="min-h-screen flex flex-col">
+        <nav class="navbar flex justify-between items-center">
+            <div class="text-spotify-green text-xl font-bold">Spopify</div>
+            <div class="flex space-x-4">
+                <a href="/" class="text-spotify-white hover:text-spotify-green">Inicio</a>
+                <a href="/canciones" class="text-spotify-white hover:text-spotify-green">Canciones</a>
+                <a href="/plataformas" class="text-spotify-white hover:text-spotify-green">Plataformas</a>
+            </div>
+        </nav>
+        
+        <main class="flex-grow p-6">
