@@ -37,10 +37,9 @@ exports.postNew = (request, response, next) => {
     const descripcion = request.body.descripcion || '';
     const plataformaId = request.body.plataforma;
     
-    // Convert song IDs to numbers if they exist
+  
     let canciones = [];
     if (request.body.canciones) {
-        // If single value, convert to array
         if (!Array.isArray(request.body.canciones)) {
             canciones = [parseInt(request.body.canciones)];
         } else {
