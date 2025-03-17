@@ -71,6 +71,7 @@
                     <div class="flex items-center space-x-4">
                         <span class="text-spotify-gray">Bienvenido, <%= userName %></span>
                         <form action="/auth/logout" method="POST" class="inline">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                             <button type="submit" class="nav-link flex items-center">
                                 <i class="fas fa-sign-out-alt mr-1"></i> Cerrar sesión
                             </button>

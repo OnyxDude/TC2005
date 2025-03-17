@@ -12,14 +12,30 @@
     <% if (playlists.length > 0) { %>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <% playlists.forEach(playlist => { %>
-                <a href="/playlists/<%= playlist.id %>" class="card bg-gray-800 hover:bg-gray-700 rounded-lg p-5 shadow-lg flex flex-col transition-all duration-200 border border-gray-700">
+                <div class="card bg-gray-800 hover:bg-gray-700 rounded-lg p-5 shadow-lg flex flex-col transition-all duration-200 border border-gray-700">
                     <div class="flex justify-between items-start mb-2">
                         <h3 class="text-xl font-bold text-spotify-green"><%= playlist.nombre %></h3>
+                        <div class="flex space-x-3">
+                            <a href="/playlists/<%= playlist.id %>" class="text-spotify-gray hover:text-white">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="/playlists/editar/<%= playlist.id %>" class="text-spotify-green hover:text-white">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </div>
                     </div>
                     <p class="text-spotify-gray mb-2"><%= playlist.descripcion %></p>
-                    <p class="text-spotify-gray mt-auto"><span class="text-sm opacity-70">Plataforma:</span> <%= playlist.plataformaId %></p>
-                    <p class="text-spotify-gray"><span class="text-sm opacity-70">Canciones:</span> <%= playlist.canciones.length %></p>
-                </a>
+                    <p class="text-spotify-gray mt-auto">
+                        <span class="text-sm opacity-70">Plataforma:</span> 
+                        <%= playlist.plataforma_nombre %>
+                    </p>
+                    <% if (playlist.total_canciones !== undefined) { %>
+                        <p class="text-spotify-gray">
+                            <span class="text-sm opacity-70">Canciones:</span> 
+                            <%= playlist.total_canciones %>
+                        </p>
+                    <% } %>
+                </div>
             <% }); %>
         </div>
     <% } else { %>

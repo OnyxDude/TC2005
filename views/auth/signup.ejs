@@ -11,6 +11,7 @@
         <% } %>
         
         <form action="/auth/signup" method="POST" class="space-y-4">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div>
                 <label for="name" class="block text-spotify-gray mb-2">Nombre completo</label>
                 <input 

@@ -1,0 +1,35 @@
+<%- include('../partials/header') %>
+
+<div class="container mx-auto px-4 py-8">
+    <div class="bg-gray-800 rounded-lg p-6 shadow-lg">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-spotify-green"><%= cancion.titulo %></h1>
+            <a href="/canciones/editar/<%= cancion.id %>" class="bg-spotify-green hover:bg-spotify-green-dark text-white py-2 px-4 rounded-full">
+                <i class="fas fa-edit mr-2"></i>Editar
+            </a>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <p class="text-gray-400 mb-2">Artista</p>
+                <p class="text-white text-xl"><%= cancion.artista %></p>
+            </div>
+            <div>
+                <p class="text-gray-400 mb-2">Álbum</p>
+                <p class="text-white text-xl"><%= cancion.album %></p>
+            </div>
+            <div>
+                <p class="text-gray-400 mb-2">Año</p>
+                <p class="text-white text-xl"><%= cancion.año %></p>
+            </div>
+        </div>
+        
+        <div class="mt-8">
+            <a href="/canciones" class="text-spotify-green hover:text-white">
+                <i class="fas fa-arrow-left mr-2"></i>Volver a la lista
+            </a>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

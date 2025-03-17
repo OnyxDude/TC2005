@@ -5,7 +5,7 @@
         <a href="/plataformas" class="text-spotify-gray hover:text-white mr-4">
             <i class="fas fa-arrow-left"></i>
         </a>
-        <h1 class="text-3xl font-bold text-spotify-green">Agregar Plataforma</h1>
+        <h1 class="text-3xl font-bold text-spotify-green"><%= editing ? 'Editar' : 'Agregar' %> Plataforma</h1>
     </div>
     
     <div class="bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-700 max-w-2xl mx-auto">
@@ -15,7 +15,12 @@
             </div>
         <% } %>
         
-        <form action="/plataformas/agregar" method="POST" class="space-y-6">
+        <form action="<%= editing ? `/plataformas/editar` : '/plataformas/agregar' %>" method="POST" class="space-y-6">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <% if (editing) { %>
+                <input type="hidden" name="id" value="<%= plataforma.id %>">
+            <% } %>
+            
             <div class="form-group">
                 <label for="nombre" class="block text-spotify-gray mb-2 font-medium">Nombre de la Plataforma *</label>
                 <input
@@ -23,6 +28,7 @@
                     id="nombre"
                     name="nombre"
                     required
+                    value="<%= editing ? plataforma.nombre : '' %>"
                     class="w-full bg-gray-900 border border-gray-700 rounded-md py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-spotify-green"
                     placeholder="Nombre de la Plataforma"
                 >
@@ -34,6 +40,7 @@
                     type="text"
                     id="url"
                     name="url"
+                    value="<%= editing ? plataforma.url : '' %>"
                     class="w-full bg-gray-900 border border-gray-700 rounded-md py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-spotify-green"
                     placeholder="https://ejemplo.com"
                 >
@@ -44,7 +51,7 @@
                     Cancelar
                 </a>
                 <button type="submit" class="btn-spotify bg-spotify-green hover:bg-opacity-80 text-white py-2 px-6 rounded-full font-medium transition-all duration-200">
-                    Guardar plataforma
+                    <%= editing ? 'Actualizar' : 'Guardar' %> plataforma
                 </button>
             </div>
         </form>

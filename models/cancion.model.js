@@ -1,12 +1,6 @@
-// Initial in-memory storage for songs
-const canciones = [
-    { id: 1, titulo: 'Bohemian Rhapsody', artista: 'Queen', album: 'A Night at the Opera', año: 1975 },
-    { id: 2, titulo: 'Imagine', artista: 'John Lennon', album: 'Imagine', año: 1971 },
-    { id: 3, titulo: 'Billie Jean', artista: 'Michael Jackson', album: 'Thriller', año: 1982 }
-];
+const db = require('../util/database');
 
 module.exports = class Cancion {
-    // Constructor for the class
     constructor(titulo, artista, album, año) {
         this.titulo = titulo;
         this.artista = artista;
@@ -14,20 +8,60 @@ module.exports = class Cancion {
         this.año = año;
     }
 
-    // Save method to store a new song
-    save() {
-        this.id = canciones.length + 1;
-        canciones.push(this);
-        return this;
+    async save() {
+        try {
+            const [result] = await db.execute(
+                'INSERT INTO canciones (titulo, artista, album, año) VALUES (?, ?, ?, ?)',
+                [this.titulo, this.artista, this.album, this.año]
+            );
+            this.id = result.insertId;
+            return this;
+        } catch (error) {
+            console.log(error);
+            throw new Error('Failed to save song');
+        }
     }
 
-    // Static method to retrieve all songs
-    static fetchAll() {
-        return canciones;
+    static async fetchAll() {
+        try {
+            const [rows] = await db.execute('SELECT * FROM canciones');
+            return rows;
+        } catch (error) {
+            console.log(error);
+            throw new Error('Failed to fetch songs');
+        }
     }
 
-    // Static method to find a song by ID
-    static findById(id) {
-        return canciones.find(cancion => cancion.id === id);
+    static async findById(id) {
+        try {
+            const [rows] = await db.execute('SELECT * FROM canciones WHERE id = ?', [id]);
+            return rows[0];
+        } catch (error) {
+            console.log(error);
+            throw new Error(`Failed to find song with id ${id}`);
+        }
+    }
+
+    static async update(id, cancion) {
+        try {
+            const [result] = await db.execute(
+                'UPDATE canciones SET titulo = ?, artista = ?, album = ?, año = ? WHERE id = ?',
+                [cancion.titulo, cancion.artista, cancion.album, cancion.año, id]
+            );
+            return result.affectedRows > 0;
+        } catch (error) {
+            console.log(error);
+            throw new Error(`Failed to update song with id ${id}`);
+        }
+    }
+
+    static async deleteById(id) {
+        try {
+            const [result] = await db.execute('DELETE FROM canciones WHERE id = ?', [id]);
+            return result.affectedRows > 0;
+        } catch (error) {
+            console.log(error);
+            throw new Error(`Failed to delete song with id ${id}`);
+        }
     }
 }

@@ -1,11 +1,16 @@
 <%- include('../partials/header') %>
 
 <div class="container mx-auto px-4 py-8">
-    <div class="flex items-center mb-8">
-        <a href="/playlists" class="text-spotify-gray hover:text-white mr-4">
-            <i class="fas fa-arrow-left"></i>
+    <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center">
+            <a href="/playlists" class="text-spotify-gray hover:text-white mr-4">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h1 class="text-3xl font-bold text-spotify-green"><%= playlist.nombre %></h1>
+        </div>
+        <a href="/playlists/editar/<%= playlist.id %>" class="btn-spotify bg-spotify-green hover:bg-opacity-80 text-white py-2 px-4 rounded-full font-medium transition-all duration-200 flex items-center">
+            <i class="fas fa-edit mr-2"></i>Editar playlist
         </a>
-        <h1 class="text-3xl font-bold text-spotify-green"><%= playlist.nombre %></h1>
     </div>
     
     <div class="bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-700">
@@ -50,7 +55,9 @@
         <% } else { %>
             <div class="bg-gray-900 rounded-lg p-6 text-center">
                 <p class="text-spotify-gray">Esta playlist aún no tiene canciones.</p>
-                <a href="/playlists/agregar" class="mt-4 inline-block text-spotify-green hover:underline">Editar playlist para añadir canciones</a>
+                <a href="/playlists/editar/<%= playlist.id %>" class="mt-4 inline-block text-spotify-green hover:underline">
+                    <i class="fas fa-plus mr-1"></i>Añadir canciones
+                </a>
             </div>
         <% } %>
     </div>

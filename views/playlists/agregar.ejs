@@ -15,7 +15,8 @@
             </div>
         <% } %>
         
-        <form action="/playlists/agregar" method="POST" class="space-y-6">
+        <form action="<%= editing ? `/playlists/editar/${playlist.id}` : '/playlists/agregar' %>" method="POST" class="space-y-6">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div class="form-group">
                 <label for="nombre" class="block text-spotify-gray mb-2 font-medium">Nombre de la playlist *</label>
                 <input
@@ -23,6 +24,7 @@
                     id="nombre"
                     name="nombre"
                     required
+                    value="<%= editing ? playlist.nombre : '' %>"
                     class="w-full bg-gray-900 border border-gray-700 rounded-md py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-spotify-green"
                     placeholder="Nombre de la playlist"
                 >
@@ -36,7 +38,7 @@
                     class="w-full bg-gray-900 border border-gray-700 rounded-md py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-spotify-green"
                     placeholder="Describe tu playlist"
                     rows="3"
-                ></textarea>
+                ><%= editing ? playlist.descripcion : '' %></textarea>
             </div>
             
             <div class="form-group">
@@ -47,9 +49,14 @@
                     required
                     class="w-full bg-gray-900 border border-gray-700 rounded-md py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-spotify-green"
                 >
-                    <option value="" disabled selected>Selecciona una plataforma</option>
+                    <option value="" disabled <%= !editing ? 'selected' : '' %>>Selecciona una plataforma</option>
                     <% plataformas.forEach(plataforma => { %>
-                        <option value="<%= plataforma.nombre %>"><%= plataforma.nombre %></option>
+                        <option 
+                            value="<%= plataforma.id %>"
+                            <%= editing && playlist.plataforma_id === plataforma.id ? 'selected' : '' %>
+                        >
+                            <%= plataforma.nombre %>
+                        </option>
                     <% }); %>
                 </select>
             </div>
@@ -65,6 +72,7 @@
                                 value="<%= cancion.id %>"
                                 id="cancion-<%= cancion.id %>"
                                 class="mr-3"
+                                <%= editing && playlist.canciones.some(c => c.id === cancion.id) ? 'checked' : '' %>
                             >
                             <label for="cancion-<%= cancion.id %>" class="cursor-pointer flex-grow">
                                 <div class="text-white"><%= cancion.titulo %></div>
@@ -80,7 +88,7 @@
                     Cancelar
                 </a>
                 <button type="submit" class="btn-spotify bg-spotify-green hover:bg-opacity-80 text-white py-2 px-6 rounded-full font-medium transition-all duration-200">
-                    Guardar playlist
+                    <%= editing ? 'Actualizar' : 'Guardar' %> playlist
                 </button>
             </div>
         </form>
