@@ -1,0 +1,114 @@
+1. Normalización de la tabla de Producción
+Tabla original
+Producción (Código de parte, Descripción de parte, Fecha, No. de operador, nombre del operador y cantidad producida en Línea 1 Turno 1, No. de operador, nombre del operador y cantidad producida en Línea 1 Turno 2, ...[hasta Línea 3 Turno 3])
+
+Primera Forma Normal (1FN)
+Para lograr la 1FN, debemos eliminar la repetición de grupos y asegurar que cada columna contenga valores atómicos.
+Producción_1FN (Código de parte, Descripción de parte, Fecha, Línea, Turno, Número de operador, Nombre del operador, Cantidad producida)
+pk-> (Código de parte, Fecha, Línea, Turno)
+
+Segunda Forma Normal (2FN)
+Código de parte → Descripción de parte (El código de parte determina su descripción)
+Número de operador → Nombre del operador (El número de operador determina su nombre)
+(Código de parte, Fecha, Línea, Turno) → Número de operador, Cantidad producida (La combinación de parte, fecha, línea y turno determina el operador y la cantidad)
+
+Creamos las siguientes tablas:
+Parte (Código de parte, Descripción de parte)
+pk-> Código de parte
+
+Operador (Número de operador, Nombre del operador)
+pk-> Número de operador
+
+Producción_2FN (Código de parte, Fecha, Línea, Turno, Número de operador, Cantidad producida)
+pk-> (Código de parte, Fecha, Línea, Turno)
+fk-> Código de parte referencia a Parte, Número de operador referencia a Operador
+
+Tercera Forma Normal (3FN)
+No se identifican dependencias transitivas adicionales en estas tablas, por lo que ya están en 3FN.
+
+Resultado final (3FN)
+Parte (Código de parte, Descripción de parte)
+pk-> Código de parte
+
+Operador (Número de operador, Nombre del operador)
+pk-> Número de operador
+
+Producción (Código de parte, Fecha, Línea, Turno, Número de operador, Cantidad producida)
+pk-> (Código de parte, Fecha, Línea, Turno)
+fk-> Código de parte referencia a Parte, Número de operador referencia a Operador
+
+
+
+2. Normalización de la tabla de Facturación
+Tabla original
+Facturación (Nombre del cliente y Dirección, Fecha y Hora, Duración, Número de teléfono de origen, Entidad federativa de origen, Ciudad de origen, Número de teléfono de destino, Entidad federativa de destino, Ciudad de destino, Tarifa por minuto entre ciudad de origen y ciudad de destino, Fecha de inicio del período de facturación, Fecha final del período de facturación)
+Análisis de la tabla
+Esta tabla tiene varios problemas:
+
+Algunas columnas no son atómicas (nombre y dirección juntos, fecha y hora juntos)
+Hay dependencias funcionales que no están adecuadamente representadas
+
+Primera Forma Normal (1FN)
+Facturación_1FN (Nombre del cliente, Dirección del cliente, Fecha, Hora, Duración, Número de teléfono de origen, Entidad federativa de origen, Ciudad de origen, Número de teléfono de destino, Entidad federativa de destino, Ciudad de destino, Tarifa por minuto, Fecha de inicio del período, Fecha final del período)
+pk-> (Número de teléfono de origen, Número de teléfono de destino, Fecha, Hora)
+
+Segunda Forma Normal (2FN)
+Dependencias funcionales identificadas:
+
+Número de teléfono de origen → Entidad federativa de origen, Ciudad de origen
+Número de teléfono de destino → Entidad federativa de destino, Ciudad de destino
+(Ciudad de origen, Ciudad de destino) → Tarifa por minuto
+(Fecha de inicio del período, Fecha final del período) → (conjunto de facturas de ese período)
+Nombre del cliente → Dirección del cliente (Asumiendo nombres únicos)
+
+Creamos las siguientes tablas:
+Cliente (Nombre del cliente, Dirección del cliente)
+pk-> Nombre del cliente
+
+Teléfono (Número de teléfono, Entidad federativa, Ciudad)
+pk-> Número de teléfono
+
+Tarifa (Ciudad de origen, Ciudad de destino, Tarifa por minuto)
+pk-> (Ciudad de origen, Ciudad de destino)
+
+Período (Fecha de inicio del período, Fecha final del período)
+pk-> Fecha de inicio del período (asumiendo que no hay períodos superpuestos)
+
+Llamada (Número de teléfono de origen, Número de teléfono de destino, Fecha, Hora, Duración, Nombre del cliente, Fecha de inicio del período)
+pk-> Número de teléfono de origen, Número de teléfono de destino, Fecha, Hora)
+fk-> Número de teléfono de origen y Número de teléfono de destino referencian a Teléfono, Nombre del cliente referencia a Cliente, Fecha de inicio del período referencia a Período
+
+Tercera Forma Normal (3FN)
+Dependencias transitivas identificadas:
+
+Número de teléfono → (Entidad federativa, Ciudad)
+
+Modificamos las tablas:
+Localidad (Entidad federativa, Ciudad)
+pk-> (Entidad federativa, Ciudad)
+
+Teléfono (Número de teléfono, Entidad federativa, Ciudad)
+pk-> Número de teléfono
+fk-> (Entidad federativa, Ciudad) referencia a Localidad
+
+Resultado final (3FN)
+Cliente (Nombre del cliente, Dirección del cliente)
+pk-> Nombre del cliente
+
+Localidad (Entidad federativa, Ciudad)
+pk-> (Entidad federativa, Ciudad)
+
+Teléfono (Número de teléfono, Entidad federativa, Ciudad)
+pk-> Número de teléfono
+fk-> Entidad federativa, Ciudad->  referencia a Localidad
+
+Tarifa (Ciudad de origen, Ciudad de destino, Tarifa por minuto)
+pk-> (Ciudad de origen, Ciudad de destino)
+fk-> Ciudad de origen referencia a Localidad(Ciudad), Ciudad de destino referencia a Localidad(Ciudad)
+
+Período (Fecha de inicio del período, Fecha final del período)
+pk-> Fecha de inicio del período
+
+Llamada (Número de teléfono de origen, Número de teléfono de destino, Fecha, Hora, Duración, Nombre del cliente, Fecha de inicio del período)
+pk-> (Número de teléfono de origen, Número de teléfono de destino, Fecha, Hora)
+fk-> Número de teléfono de origen y Número de teléfono de destino referencian a Teléfono, Nombre del cliente referencia a Cliente, Fecha de inicio del período referencia a Período
