@@ -13,4 +13,7 @@ router.post('/agregar', isAuth, cancionesController.postNew);
 router.get('/editar/:id', isAuth, cancionesController.getEdit);
 router.post('/editar', isAuth, cancionesController.postEdit);
 
+// Spotify integration
+router.get('/agregar-spotify/:trackId', isAuth, cancionesController.getAddFromSpotify);
+
 module.exports = router;

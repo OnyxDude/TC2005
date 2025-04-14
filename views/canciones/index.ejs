@@ -1,117 +1,290 @@
 <%- include('../partials/header') %>
 
 <div class="container mx-auto px-4 py-8">
-    <div class="flex justify-between items-center mb-8">
-        <h1 class="text-3xl font-bold text-spotify-green">Canciones</h1>
+    <!-- Encabezado principal simplificado -->
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-spotify-green">Tu Música</h1>
         
-        <a href="/canciones/agregar" class="btn-spotify bg-spotify-green hover:bg-opacity-80 text-white py-2 px-4 rounded-full font-medium transition-all duration-200 flex items-center">
-            <i class="fas fa-plus mr-2"></i>Añadir nueva canción
-        </a>
+        <div class="flex gap-4 items-center">
+            <a href="/canciones/agregar" class="btn-spotify bg-spotify-green hover:bg-opacity-80 text-white py-2 px-4 rounded-full font-medium transition-all duration-200 flex items-center">
+                <i class="fas fa-plus mr-2"></i>Añadir canción
+            </a>
+        </div>
     </div>
     
-    <% if (typeof canciones !== 'undefined' && canciones.length > 0) { %>
-        <div class="flex justify-end mb-6">
-            <div class="bg-gray-800 rounded-full p-1 flex">
-                <button id="gridViewBtn" class="py-1 px-4 rounded-full bg-spotify-green text-white">
-                    <i class="fas fa-th-large mr-1"></i> Grid
+    <!-- Campo de búsqueda de Spotify integrado -->
+    <div class="mb-6">
+        <div class="bg-gray-800 bg-opacity-80 backdrop-blur-sm rounded-lg p-4 shadow-lg border border-gray-700">
+            <div class="flex items-center gap-3 mb-3">
+                <i class="fab fa-spotify text-spotify-green text-2xl"></i>
+                <h2 class="text-lg font-bold text-white">Buscar en Spotify</h2>
+            </div>
+            
+            <form id="searchForm" action="/canciones" method="GET" class="flex flex-col sm:flex-row gap-3">
+                <div class="relative flex-grow">
+                    <input 
+                        type="text" 
+                        name="q" 
+                        value="<%= locals.query || '' %>" 
+                        placeholder="Buscar por título, artista o álbum..." 
+                        class="w-full bg-gray-900 bg-opacity-70 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-spotify-green"
+                    >
+                    <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-spotify-green transition-colors">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <button type="button" id="advancedSearchToggle" class="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition-colors flex items-center gap-2 whitespace-nowrap">
+                    <i class="fas fa-sliders-h text-xs"></i>
+                    <span class="text-sm">Filtros</span>
                 </button>
-                <button id="listViewBtn" class="py-1 px-4 rounded-full text-spotify-gray hover:text-white">
-                    <i class="fas fa-list mr-1"></i> Lista
-                </button>
+            </form>
+            
+            <!-- Panel de opciones de búsqueda avanzada (oculto por defecto) -->
+            <div id="advancedSearchPanel" class="hidden pt-3 mt-3 border-t border-gray-700">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                        <h4 class="text-spotify-green font-medium mb-2">Tipo de contenido</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded-full text-white cursor-pointer transition-colors">Canciones</span>
+                            <span class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded-full text-white cursor-pointer transition-colors">Álbumes</span>
+                            <span class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded-full text-white cursor-pointer transition-colors">Artistas</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-spotify-green font-medium mb-2">Filtros</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded-full text-white cursor-pointer transition-colors">Populares</span>
+                            <span class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded-full text-white cursor-pointer transition-colors">Recientes</span>
+                        </div>
+                    </div>
+                    <div class="text-right flex items-end justify-end">
+                        <button class="text-spotify-green hover:underline">Aplicar filtros</button>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
+    
+    <!-- Layout principal de dos columnas -->
+    <div class="flex flex-col lg:flex-row gap-6">
+        
+        <!-- Panel de Biblioteca (siempre visible) -->
+        <div id="panelBiblioteca" class="w-full lg:w-3/5">
+            <!-- Biblioteca de Canciones -->
+            <div class="bg-gray-900 bg-opacity-30 backdrop-blur-sm rounded-lg p-6 shadow-lg h-full">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="p-1.5 bg-gray-800 rounded-lg">
+                            <i class="fas fa-music text-white text-xl"></i>
+                        </div>
+                        <h2 class="text-xl font-bold text-white">Tu biblioteca</h2>
+                        <% if (typeof canciones !== 'undefined' && canciones.length > 0) { %>
+                            <span class="px-2 py-0.5 bg-gray-800 rounded-md text-xs text-gray-400"><%= canciones.length %> canciones</span>
+                        <% } %>
+                    </div>
+                    
+                    <% if (typeof canciones !== 'undefined' && canciones.length > 0) { %>
+                        <div class="flex items-center gap-3">
+                            <div class="bg-gray-800 rounded-full p-0.5 flex">
+                                <button id="gridViewBtn" class="py-1 px-3 rounded-full bg-spotify-green text-white text-xs">
+                                    <i class="fas fa-th-large"></i>
+                                </button>
+                                <button id="listViewBtn" class="py-1 px-3 rounded-full text-gray-400 hover:text-white text-xs">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
 
-        <div id="gridView" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <% canciones.forEach(cancion => { %>
-                <div class="card bg-gray-800 hover:bg-gray-700 rounded-lg p-5 shadow-lg flex flex-col transition-all duration-200 border border-gray-700">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-spotify-green"><%= cancion.titulo %></h3>
-                        <div class="flex space-x-3">
-                            <a href="/canciones/ver/<%= cancion.id %>" class="text-spotify-gray hover:text-white">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                            <a href="/canciones/editar/<%= cancion.id %>" class="text-spotify-green hover:text-white">
-                                <i class="fas fa-edit"></i>
+                <% if (typeof canciones !== 'undefined' && canciones.length > 0) { %>
+                    <!-- Grid View -->
+                    <div id="gridView" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <% canciones.forEach(cancion => { %>
+                            <div class="bg-gray-800 hover:bg-gray-750 rounded-lg overflow-hidden shadow-md hover:shadow-lg flex flex-col transition-all duration-200 transform hover:-translate-y-1 h-full">
+                                <div class="p-4 pb-2 flex items-center justify-between">
+                                    <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
+                                        <i class="fas fa-music text-gray-500"></i>
+                                    </div>
+                                    <div class="flex space-x-1">
+                                        <a href="/canciones/ver/<%= cancion.id %>" class="p-1.5 text-gray-400 hover:text-white transition-colors">
+                                            <i class="fas fa-eye text-sm"></i>
+                                        </a>
+                                        <a href="/canciones/editar/<%= cancion.id %>" class="p-1.5 text-gray-400 hover:text-white transition-colors">
+                                            <i class="fas fa-edit text-sm"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="px-4 pb-4">
+                                    <h3 class="text-base font-medium text-white mb-1 line-clamp-1"><%= cancion.titulo %></h3>
+                                    <p class="text-sm text-gray-400 mb-2 line-clamp-1"><%= cancion.artista %></p>
+                                    
+                                    <div class="flex justify-between text-xs text-gray-500">
+                                        <div class="truncate max-w-[70%]">
+                                            <span class="block truncate"><%= cancion.album || 'Sin álbum' %></span>
+                                        </div>
+                                        <span><%= cancion.año || 'N/A' %></span>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </div>
+
+                    <!-- List View -->
+                    <div id="listView" class="hidden">
+                        <div class="bg-gray-800 bg-opacity-50 rounded-lg overflow-hidden">
+                            <table class="min-w-full divide-y divide-gray-700">
+                                <thead>
+                                    <tr class="bg-gray-900 bg-opacity-70">
+                                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-8">#</th>
+                                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Título</th>
+                                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Artista</th>
+                                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider hidden md:table-cell">Álbum</th>
+                                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider hidden sm:table-cell">Año</th>
+                                        <th scope="col" class="px-3 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% canciones.forEach((cancion, index) => { %>
+                                        <tr class="hover:bg-gray-750 transition-colors group">
+                                            <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-500"><%= index + 1 %></td>
+                                            <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-white"><%= cancion.titulo %></td>
+                                            <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-400"><%= cancion.artista %></td>
+                                            <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-400 hidden md:table-cell"><%= cancion.album %></td>
+                                            <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-400 hidden sm:table-cell"><%= cancion.año %></td>
+                                            <td class="px-3 py-3 whitespace-nowrap text-sm text-right">
+                                                <div class="flex justify-end items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    <a href="/canciones/ver/<%= cancion.id %>" class="text-gray-400 hover:text-white p-1 transition-colors">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                    <a href="/canciones/editar/<%= cancion.id %>" class="text-gray-400 hover:text-white p-1 transition-colors">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <div class="py-16 text-center flex flex-col items-center gap-4">
+                        <div class="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center">
+                            <i class="fas fa-music text-2xl text-gray-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-white text-lg mb-2">Tu biblioteca está vacía</p>
+                            <p class="text-gray-400 mb-6">Comienza añadiendo tu primera canción</p>
+                            <a href="/canciones/agregar" class="bg-spotify-green hover:bg-opacity-80 text-white py-2 px-6 rounded-full font-medium transition-all duration-200 inline-flex items-center gap-2">
+                                <i class="fas fa-plus"></i> Añadir canción
                             </a>
                         </div>
                     </div>
-                    <p class="text-spotify-gray mb-2"><span class="text-sm opacity-70">Artista:</span> <%= cancion.artista %></p>
-                    <p class="text-spotify-gray mb-2"><span class="text-sm opacity-70">Album:</span> <%= cancion.album %></p>
-                    <p class="text-spotify-gray mb-4"><span class="text-sm opacity-70">Año:</span> <%= cancion.año %></p>
-                </div>
-            <% }); %>
-        </div>
-
-        <div id="listView" class="hidden">
-            <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg border border-gray-700">
-                <table class="min-w-full">
-                    <thead>
-                        <tr class="bg-gray-900">
-                            <th class="px-6 py-3 text-left text-xs font-medium text-spotify-green uppercase tracking-wider">Título</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-spotify-green uppercase tracking-wider">Artista</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-spotify-green uppercase tracking-wider">Album</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-spotify-green uppercase tracking-wider">Año</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-spotify-green uppercase tracking-wider">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-700">
-                        <% canciones.forEach(cancion => { %>
-                            <tr class="hover:bg-gray-700 transition-colors">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white"><%= cancion.titulo %></td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-spotify-gray"><%= cancion.artista %></td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-spotify-gray"><%= cancion.album %></td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-spotify-gray"><%= cancion.año %></td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-spotify-gray">
-                                    <div class="flex space-x-4">
-                                        <a href="/canciones/ver/<%= cancion.id %>" class="text-spotify-gray hover:text-white">
-                                            <i class="fas fa-eye"></i> Ver
-                                        </a>
-                                        <a href="/canciones/editar/<%= cancion.id %>" class="text-spotify-green hover:text-white">
-                                            <i class="fas fa-edit"></i> Editar
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        <% }); %>
-                    </tbody>
-                </table>
+                <% } %>
             </div>
         </div>
-    <% } else { %>
-        <div class="bg-gray-800 rounded-lg p-10 text-center border border-gray-700">
-            <p class="text-spotify-gray mb-6">No hay canciones disponibles en tu biblioteca.</p>
-            <a href="/canciones/nueva" class="btn-spotify bg-spotify-green hover:bg-opacity-80 text-white py-2 px-4 rounded-full font-medium transition-all duration-200 inline-flex items-center">
-                <i class="fas fa-music mr-2"></i> Añadir tu primera canción
-            </a>
+        
+        <!-- Panel de Spotify (siempre visible) -->
+        <div id="panelSpotify" class="w-full lg:w-2/5">
+            <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-lg p-6 shadow-lg border border-gray-800 h-full">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="p-1.5 bg-spotify-green bg-opacity-20 rounded-lg">
+                        <i class="fab fa-spotify text-spotify-green text-xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-white">Resultados de Spotify</h2>
+                </div>
+                
+                <% if (locals.query && locals.spotifyResults && locals.spotifyResults.length > 0) { %>
+                    <!-- Resultados de búsqueda de Spotify -->
+                    <div class="mb-2">
+                        <div class="flex items-center mb-3">
+                            <span class="text-gray-300 text-sm">Resultados para </span>
+                            <span class="text-spotify-green font-medium text-sm ml-1">"<%= query %>"</span>
+                            <span class="ml-2 px-2 py-0.5 bg-gray-800 rounded text-xs text-gray-400"><%= spotifyResults.length %> encontrados</span>
+                        </div>
+                        
+                        <div class="space-y-2 pr-2 max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-track-gray-800 scrollbar-thumb-gray-600">
+                            <% spotifyResults.forEach(track => { %>
+                                <div class="flex gap-3 bg-gray-800 hover:bg-gray-750 p-3 rounded-lg transition-colors group">
+                                    <div class="relative w-12 h-12 flex-shrink-0 bg-gray-900 overflow-hidden rounded">
+                                        <% if (track.album && track.album.images && track.album.images.length > 0) { %>
+                                            <img src="<%= track.album.images[0].url %>" alt="<%= track.album.name %>" class="w-full h-full object-cover">
+                                        <% } else { %>
+                                            <div class="w-full h-full flex items-center justify-center">
+                                                <i class="fas fa-music text-gray-600"></i>
+                                            </div>
+                                        <% } %>
+                                        <a href="<%= track.external_urls.spotify %>" target="_blank" class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <i class="fas fa-play text-white"></i>
+                                        </a>
+                                    </div>
+                                    
+                                    <div class="flex-grow min-w-0">
+                                        <h3 class="font-medium text-white text-sm line-clamp-1"><%= track.name %></h3>
+                                        <p class="text-gray-400 text-xs line-clamp-1 mb-1"><%= track.artists.map(a => a.name).join(', ') %></p>
+                                        <div class="flex justify-between items-center">
+                                            <p class="text-gray-500 text-xs truncate"><%= track.album.name %></p>
+                                            <a href="/canciones/agregar-spotify/<%= track.id %>" class="text-spotify-green hover:text-white transition-colors">
+                                                <i class="fas fa-plus-circle"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }); %>
+                            
+                            <div class="text-center pt-3">
+                                <button onclick="showMoreResults()" class="text-xs text-spotify-green hover:text-white py-1.5 px-4 rounded-full border border-gray-700 hover:border-spotify-green transition-all">
+                                    Ver más resultados
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <% } else if (locals.query && (!locals.spotifyResults || locals.spotifyResults.length === 0)) { %>
+                    <!-- No hay resultados -->
+                    <div class="py-8 flex flex-col items-center justify-center">
+                        <div class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-search text-gray-500"></i>
+                        </div>
+                        <p class="text-white text-base mb-1">No se encontraron resultados</p>
+                        <p class="text-gray-400 text-sm">Intenta con otros términos para "<span class="text-spotify-green"><%= query %></span>"</p>
+                    </div>
+                <% } else { %>
+                    <!-- Mensaje amigable cuando no hay búsqueda -->
+                    <div id="mensajeInicial" class="py-6 px-4">
+                        <div class="text-center mb-6">
+                            <div class="w-16 h-16 mx-auto bg-gray-800 rounded-full flex items-center justify-center mb-4">
+                                <i class="fas fa-music text-spotify-green text-2xl"></i>
+                            </div>
+                            <h3 class="text-white text-lg font-medium mb-2">¡Descubre nueva música!</h3>
+                            <p class="text-gray-300 text-sm">Usa la barra de búsqueda de Spotify para encontrar tus canciones favoritas</p>
+                        </div>
+                        
+                        <div class="bg-gray-800 rounded-lg p-4 mb-4">
+                            <h4 class="text-spotify-green font-medium text-sm mb-2">Tips para buscar música:</h4>
+                            <ul class="text-gray-300 text-sm space-y-2">
+                                <li><span class="text-gray-400">♫</span> Busca por nombre de canción o artista</li>
+                                <li><span class="text-gray-400">♫</span> Incluye el nombre del álbum para resultados más precisos</li>
+                                <li><span class="text-gray-400">♫</span> Prueba con distintos términos si no encuentras lo que buscas</li>
+                            </ul>
+                        </div>
+                        
+                        <p class="text-gray-500 text-xs text-center italic">Los resultados aparecerán aquí después de tu búsqueda</p>
+                    </div>
+                <% } %>
+                
+                <% if (locals.spotifyError) { %>
+                    <div class="mt-4 bg-red-900 bg-opacity-20 border border-red-800 text-red-200 p-3 rounded-lg text-sm flex items-center gap-2">
+                        <i class="fas fa-exclamation-circle text-red-400"></i>
+                        <p><%= spotifyError %></p>
+                    </div>
+                <% } %>
+            </div>
         </div>
-    <% } %>
+    </div>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const gridViewBtn = document.getElementById('gridViewBtn');
-        const listViewBtn = document.getElementById('listViewBtn');
-        const gridView = document.getElementById('gridView');
-        const listView = document.getElementById('listView');
-        
-        if (gridViewBtn && listViewBtn) {
-            gridViewBtn.addEventListener('click', function() {
-                gridView.classList.remove('hidden');
-                listView.classList.add('hidden');
-                gridViewBtn.classList.add('bg-spotify-green', 'text-white');
-                listViewBtn.classList.remove('bg-spotify-green', 'text-white');
-                listViewBtn.classList.add('text-spotify-gray');
-            });
-            
-            listViewBtn.addEventListener('click', function() {
-                gridView.classList.add('hidden');
-                listView.classList.remove('hidden');
-                listViewBtn.classList.add('bg-spotify-green', 'text-white');
-                gridViewBtn.classList.remove('bg-spotify-green', 'text-white');
-                gridViewBtn.classList.add('text-spotify-gray');
-            });
-        }
-    });
-</script>
-
+<script src="/js/spotify-search.js"></script>
+<script src="/js/canciones-layout.js"></script>
 <%- include('../partials/footer') %>

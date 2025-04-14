@@ -4,6 +4,17 @@
     <h1 class="text-4xl font-bold text-spotify-green mb-4">Bienvenido a nuestra aplicación</h1>
     <p class="text-xl text-spotify-gray mb-6">Descubre y explora tu música favorita</p>
     
+    <!-- Spotify Search Bar -->
+    <div class="max-w-3xl mx-auto mb-10">
+        <form action="/canciones" method="GET" class="flex flex-col md:flex-row gap-4">
+            <input type="text" name="q" placeholder="Buscar canciones en Spotify..." 
+                class="flex-grow bg-gray-800 text-white rounded-full px-6 py-3 focus:outline-none focus:ring-2 focus:ring-spotify-green">
+            <button type="submit" class="btn-spotify bg-spotify-green hover:bg-opacity-80 text-white py-3 px-8 rounded-full font-medium transition-all duration-200 flex items-center justify-center">
+                <i class="fab fa-spotify mr-2"></i>Buscar en Spotify
+            </button>
+        </form>
+    </div>
+    
     <div class="flex justify-center gap-4 mb-8">
         <a href="/canciones" class="btn-spotify bg-spotify-green text-white py-2 px-6 rounded-full font-medium transition-all duration-200 flex items-center">
             <i class="fas fa-music mr-2"></i> Ver canciones

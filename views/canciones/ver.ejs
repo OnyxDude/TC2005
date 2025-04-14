@@ -24,6 +24,28 @@
             </div>
         </div>
         
+        <% if (spotifyTrack) { %>
+            <div class="mt-8 border-t border-gray-700 pt-6">
+                <div class="flex flex-col md:flex-row items-center gap-6">
+                    <% if (spotifyTrack.album && spotifyTrack.album.images && spotifyTrack.album.images.length > 0) { %>
+                        <img src="<%= spotifyTrack.album.images[0].url %>" alt="Album Artwork" class="w-48 h-48 object-cover rounded-md shadow-lg">
+                    <% } %>
+                    
+                    <div class="flex-1">
+                        <div class="mb-4">
+                            <h3 class="text-spotify-green text-xl font-bold">Escuchar en Spotify</h3>
+                            <p class="text-gray-400 mb-2">Esta canción está disponible en Spotify</p>
+                        </div>
+                        
+                        <!-- External Spotify Link -->
+                        <a href="<%= spotifyTrack.external_urls.spotify %>" target="_blank" class="bg-spotify-green hover:bg-opacity-80 text-white px-4 py-2 rounded-full transition-all inline-flex items-center">
+                            <i class="fab fa-spotify mr-2"></i>Abrir en Spotify
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+        
         <div class="mt-8">
             <a href="/canciones" class="text-spotify-green hover:text-white">
                 <i class="fas fa-arrow-left mr-2"></i>Volver a la lista
@@ -31,5 +53,7 @@
         </div>
     </div>
 </div>
+
+
 
 <%- include('../partials/footer') %>
