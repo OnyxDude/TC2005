@@ -1,0 +1,65 @@
+<%- include('../partials/header') %>
+
+<div class="container mx-auto px-4 py-8">
+    <div class="flex items-center mb-8">
+        <a href="/archivos" class="text-spotify-gray hover:text-white mr-4">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 class="text-3xl font-bold text-spotify-green">Lista de Archivos</h1>
+    </div>
+    
+    <% if (error) { %>
+        <div class="bg-red-500 bg-opacity-20 border border-red-500 text-red-300 px-4 py-3 rounded mb-6">
+            <p><%= error %></p>
+        </div>
+    <% } %>
+    
+    <div class="bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-700">
+        <% if (archivos && archivos.length > 0) { %>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <% archivos.forEach(function(archivo) { %>
+                    <div class="bg-gray-900 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-200 border border-gray-700">
+                        <div class="p-4 flex flex-col h-full">
+                            <% if (archivo.mimetype && archivo.mimetype.startsWith('image/')) { %>
+                                <div class="h-40 overflow-hidden bg-gray-800 flex items-center justify-center rounded mb-4">
+                                    <img src="/archivos/archivo/<%= archivo.id %>" alt="<%= archivo.nombre %>" class="h-full object-contain" />
+                                </div>
+                            <% } else { %>
+                                <div class="h-40 flex items-center justify-center bg-gray-800 rounded mb-4">
+                                    <i class="fas fa-file-alt text-5xl text-spotify-gray"></i>
+                                </div>
+                            <% } %>
+                            <div class="flex flex-col flex-grow">
+                                <h3 class="text-white truncate font-semibold mb-2" title="<%= archivo.nombre %>"><%= archivo.nombre %></h3>
+                                <p class="text-spotify-gray text-sm mb-4 truncate"><%= new Date(archivo.fecha).toLocaleString() %></p>
+                                <div class="mt-auto flex justify-between">
+                                    <a href="/archivos/archivo/<%= archivo.id %>" target="_blank" class="text-spotify-green hover:text-white transition-colors flex items-center">
+                                        <i class="fas fa-external-link-alt mr-1"></i> Ver
+                                    </a>
+                                    <a href="/archivos/archivo/<%= archivo.id %>?download=true" class="text-white hover:text-spotify-green transition-colors flex items-center">
+                                        <i class="fas fa-download mr-1"></i> Descargar
+                                    </a>
+                                </div>
+                                <div class="mt-2 pt-2 border-t border-gray-700">
+                                    <a href="/archivos/eliminar/<%= archivo.id %>" onclick="return confirm('¿Estás seguro de que quieres eliminar este archivo?')" class="text-red-400 hover:text-red-300 transition-colors flex items-center">
+                                        <i class="fas fa-trash mr-1"></i> Eliminar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <div class="text-center py-10">
+                <i class="fas fa-folder-open text-5xl text-spotify-gray mb-4"></i>
+                <p class="text-spotify-gray">No hay archivos disponibles.</p>
+                <a href="/archivos/subir" class="btn-spotify bg-spotify-green hover:bg-opacity-80 text-white py-2 px-4 rounded-full font-medium transition-all duration-200 inline-block mt-4">
+                    <i class="fas fa-upload mr-2"></i>Subir primer archivo
+                </a>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

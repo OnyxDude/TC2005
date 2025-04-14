@@ -137,3 +137,27 @@ exports.postEdit = async (request, response, next) => {
         response.status(500).send('Error al actualizar la playlist');
     }
 };
+
+exports.searchPlaylists = async (request, response, next) => {
+    try {
+        console.log('Buscando playlists con el termino:', request.query.term);
+        const searchTerm = request.query.term || '';
+        
+        const playlists = await Playlist.search(searchTerm);
+        console.log(`Se encontraron ${playlists.length} playlists`);
+        
+    
+        return response.status(200).json({
+            playlists: playlists,
+            message: playlists.length > 0 ? 
+                `Se encontraron ${playlists.length} resultados para "${searchTerm}"` : 
+                `No se encontraron playlists que coincidan con "${searchTerm}"`
+        });
+    } catch (error) {
+        console.error('Error en la busqueda:', error);
+        return response.status(500).json({ 
+            error: true,
+            message: 'Error al buscar playlists: ' + error.message 
+        });
+    }
+};

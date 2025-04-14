@@ -1,0 +1,65 @@
+<%- include('../partials/header') %>
+
+<div class="container mx-auto px-4 py-8">
+    <div class="flex items-center mb-8">
+        <a href="/archivos" class="text-spotify-gray hover:text-white mr-4">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 class="text-3xl font-bold text-spotify-green">Subir Archivo</h1>
+    </div>
+    
+    <div class="bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-700 max-w-2xl mx-auto">
+        <% if (error) { %>
+            <div class="bg-red-500 bg-opacity-20 border border-red-500 text-red-300 px-4 py-3 rounded mb-4">
+                <p><%= error %></p>
+            </div>
+        <% } %>
+        
+        <form action="/archivos/subir" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            
+            <div class="form-group">
+                <label for="archivo" class="block text-spotify-gray mb-2 font-medium">Selecciona un archivo</label>
+                <div class="flex items-center justify-center w-full">
+                    <label class="flex flex-col w-full h-32 border-2 border-dashed rounded-lg border-gray-600 hover:border-spotify-green hover:bg-gray-700 cursor-pointer">
+                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-500 mb-2"></i>
+                            <p class="text-sm text-gray-400">
+                                <span class="font-semibold">Haz clic para seleccionar</span> o arrastra y suelta
+                            </p>
+                            <p class="text-xs text-gray-500">PNG, JPG o JPEG (Máx. 10MB)</p>
+                        </div>
+                        <input id="archivo" name="archivo" type="file" class="hidden" accept="image/png, image/jpeg, image/jpg" />
+                    </label>
+                </div>
+                <p id="file-chosen" class="mt-2 text-sm text-spotify-gray">No se ha seleccionado ningún archivo</p>
+            </div>
+            
+            <div class="flex justify-end pt-4 border-t border-gray-700">
+                <a href="/archivos" class="btn-secondary bg-transparent border border-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-full font-medium transition-all duration-200 mr-4">
+                    Cancelar
+                </a>
+                <button type="submit" class="btn-spotify bg-spotify-green hover:bg-opacity-80 text-white py-2 px-6 rounded-full font-medium transition-all duration-200">
+                    Subir archivo
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fileInput = document.getElementById('archivo');
+        const fileChosen = document.getElementById('file-chosen');
+        
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                fileChosen.textContent = fileInput.files[0].name;
+            } else {
+                fileChosen.textContent = 'No se ha seleccionado ningún archivo';
+            }
+        });
+    });
+</script>
+
+<%- include('../partials/footer') %>

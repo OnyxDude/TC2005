@@ -1,0 +1,60 @@
+<%- include('../partials/header') %>
+
+<div class="container mx-auto px-4 py-8">
+    <div class="flex items-center mb-8">
+        <a href="/archivos" class="text-spotify-gray hover:text-white mr-4">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 class="text-3xl font-bold text-spotify-green">Archivo Subido Exitosamente</h1>
+    </div>
+    
+    <div class="bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-700 max-w-2xl mx-auto">
+        <div class="text-center">
+            <div class="bg-green-500 bg-opacity-20 border border-green-500 text-green-300 px-4 py-3 rounded mb-6">
+                <p><i class="fas fa-check-circle mr-2"></i>El archivo se ha subido correctamente</p>
+            </div>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-white mb-4">Detalles del archivo</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left bg-gray-900 p-4 rounded-lg">
+                    <div>
+                        <p class="text-spotify-gray mb-1">Nombre del archivo:</p>
+                        <p class="text-white"><%= archivo.originalname %></p>
+                    </div>
+                    <div>
+                        <p class="text-spotify-gray mb-1">Tipo de archivo:</p>
+                        <p class="text-white"><%= archivo.mimetype %></p>
+                    </div>
+                    <div>
+                        <p class="text-spotify-gray mb-1">Tamaño:</p>
+                        <p class="text-white"><%= (archivo.size / 1024).toFixed(2) %> KB</p>
+                    </div>
+                    <div>
+                        <p class="text-spotify-gray mb-1">Ubicación:</p>
+                        <p class="text-white">Almacenado en la base de datos</p>
+                    </div>
+                </div>
+            </div>
+            
+            <% if (archivo.mimetype && archivo.mimetype.startsWith('image/')) { %>
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-white mb-4">Vista previa</h3>
+                    <div class="bg-gray-900 p-4 rounded-lg">
+                        <img src="/archivos/archivo/<%= archivo_id %>" alt="Archivo subido" class="max-h-64 mx-auto rounded" />
+                    </div>
+                </div>
+            <% } %>
+            
+            <div class="flex justify-center space-x-4 mt-6">
+                <a href="/archivos/subir" class="btn-secondary bg-transparent border border-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-full font-medium transition-all duration-200">
+                    <i class="fas fa-upload mr-2"></i>Subir otro archivo
+                </a>
+                <a href="/archivos/lista" class="btn-spotify bg-spotify-green hover:bg-opacity-80 text-white py-2 px-4 rounded-full font-medium transition-all duration-200">
+                    <i class="fas fa-list mr-2"></i>Ver todos los archivos
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -9,43 +9,76 @@
         </a>
     </div>
     
-    <% if (playlists.length > 0) { %>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <% playlists.forEach(playlist => { %>
-                <div class="card bg-gray-800 hover:bg-gray-700 rounded-lg p-5 shadow-lg flex flex-col transition-all duration-200 border border-gray-700">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-spotify-green"><%= playlist.nombre %></h3>
-                        <div class="flex space-x-3">
-                            <a href="/playlists/<%= playlist.id %>" class="text-spotify-gray hover:text-white">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                            <a href="/playlists/editar/<%= playlist.id %>" class="text-spotify-green hover:text-white">
-                                <i class="fas fa-edit"></i>
-                            </a>
+
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    
+    <div class="mb-6">
+        <div class="relative">
+            <input 
+                type="text" 
+                id="search-input" 
+                placeholder="Buscar playlists..." 
+                class="w-full bg-gray-900 border border-gray-700 rounded-md py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-spotify-green pr-12"
+            >
+            <button id="search-button" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-spotify-green">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="search-notification" class="hidden mb-4 p-3 rounded-md text-center"></div>
+    
+
+    <div id="playlists-container">
+        <% if (playlists.length > 0) { %>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <% playlists.forEach(playlist => { %>
+                    <div class="card bg-gray-800 hover:bg-gray-700 rounded-lg p-5 shadow-lg flex flex-col transition-all duration-200 border border-gray-700">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-spotify-green"><%= playlist.nombre %></h3>
+                            <div class="flex space-x-3">
+                                <a href="/playlists/<%= playlist.id %>" class="text-spotify-gray hover:text-white">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="/playlists/editar/<%= playlist.id %>" class="text-spotify-green hover:text-white">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <p class="text-spotify-gray mb-2"><%= playlist.descripcion %></p>
-                    <p class="text-spotify-gray mt-auto">
-                        <span class="text-sm opacity-70">Plataforma:</span> 
-                        <%= playlist.plataforma_nombre %>
-                    </p>
-                    <% if (playlist.total_canciones !== undefined) { %>
-                        <p class="text-spotify-gray">
-                            <span class="text-sm opacity-70">Canciones:</span> 
-                            <%= playlist.total_canciones %>
+                        <p class="text-spotify-gray mb-2"><%= playlist.descripcion %></p>
+                        <p class="text-spotify-gray mt-auto">
+                            <span class="text-sm opacity-70">Plataforma:</span> 
+                            <%= playlist.plataforma_nombre %>
                         </p>
-                    <% } %>
-                </div>
-            <% }); %>
+                        <% if (playlist.total_canciones !== undefined) { %>
+                            <p class="text-spotify-gray">
+                                <span class="text-sm opacity-70">Canciones:</span> 
+                                <%= playlist.total_canciones %>
+                            </p>
+                        <% } %>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <div class="bg-gray-800 rounded-lg p-10 text-center border border-gray-700">
+                <p class="text-spotify-gray mb-6">No hay playlists disponibles.</p>
+                <a href="/playlists/agregar" class="btn-spotify bg-spotify-green hover:bg-opacity-80 text-white py-2 px-4 rounded-full font-medium transition-all duration-200 inline-flex items-center">
+                    <i class="fas fa-music mr-2"></i> Crea tu primera playlist
+                </a>
+            </div>
+        <% } %>
+    </div>
+    
+   
+    <div class="container mx-auto px-4 py-4 mt-8">
+        <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+            <h3 class="text-xl font-bold text-spotify-green mb-2">Componente AJAX</h3>
+            <p class="text-spotify-gray">Esta página utiliza AJAX para buscar playlists sin recargar la página. Escribe en el campo de búsqueda y los resultados se actualizarán automáticamente.</p>
         </div>
-    <% } else { %>
-        <div class="bg-gray-800 rounded-lg p-10 text-center border border-gray-700">
-            <p class="text-spotify-gray mb-6">No hay playlists disponibles.</p>
-            <a href="/playlists/agregar" class="btn-spotify bg-spotify-green hover:bg-opacity-80 text-white py-2 px-4 rounded-full font-medium transition-all duration-200 inline-flex items-center">
-                <i class="fas fa-music mr-2"></i> Crea tu primera playlist
-            </a>
-        </div>
-    <% } %>
+    </div>
 </div>
+
+
+<script src="/js/playlist-search.js"></script>
 
 <%- include('../partials/footer') %>

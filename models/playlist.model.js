@@ -155,4 +155,26 @@ module.exports = class Playlist {
             connection.release();
         }
     }
+
+    static async search(searchTerm) {
+        try {
+           
+            if (!searchTerm || searchTerm.trim() === '') {
+                return this.fetchAll();
+            }
+            
+            const [rows] = await db.execute(`
+                SELECT p.*, pl.nombre AS plataforma_nombre,
+                (SELECT COUNT(*) FROM playlist_canciones pc WHERE pc.playlist_id = p.id) AS total_canciones
+                FROM playlists p
+                LEFT JOIN plataformas pl ON p.plataforma_id = pl.id
+                WHERE p.nombre LIKE ? OR p.descripcion LIKE ?
+            `, [`%${searchTerm}%`, `%${searchTerm}%`]);
+            
+            return rows;
+        } catch (error) {
+            console.log('Error in Playlist.search:', error);
+            throw error;
+        }
+    }
 }

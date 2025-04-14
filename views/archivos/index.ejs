@@ -1,0 +1,25 @@
+<%- include('../partials/header') %>
+
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-spotify-green mb-8">Manejo de Archivos</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card bg-gray-800 hover:bg-gray-700 rounded-lg p-5 shadow-lg flex flex-col transition-all duration-200 border border-gray-700">
+            <h3 class="text-xl font-bold text-spotify-green mb-4">Subir Archivos</h3>
+            <p class="text-spotify-gray mb-4">Sube imágenes a la plataforma en formato PNG, JPG o JPEG.</p>
+            <a href="/archivos/subir" class="btn-spotify bg-spotify-green hover:bg-opacity-80 text-white py-2 px-4 rounded-full font-medium transition-all duration-200 w-fit mt-auto">
+                <i class="fas fa-upload mr-2"></i>Subir Archivo
+            </a>
+        </div>
+        
+        <div class="card bg-gray-800 hover:bg-gray-700 rounded-lg p-5 shadow-lg flex flex-col transition-all duration-200 border border-gray-700">
+            <h3 class="text-xl font-bold text-spotify-green mb-4">Ver Archivos</h3>
+            <p class="text-spotify-gray mb-4">Explora todos los archivos que han sido subidos a la plataforma.</p>
+            <a href="/archivos/lista" class="btn-spotify bg-spotify-green hover:bg-opacity-80 text-white py-2 px-4 rounded-full font-medium transition-all duration-200 w-fit mt-auto">
+                <i class="fas fa-list mr-2"></i>Ver Lista de Archivos
+            </a>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>
