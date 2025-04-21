@@ -40,10 +40,21 @@ exports.getAll = async (request, response, next) => {
 exports.getSong = async (request, response, next) => {
     try {
         const id = parseInt(request.params.id);
+        
+        // Register the click before fetching the song data
+        await Cancion.registerClick(id);
+        
+        // Now fetch the song with the updated click count
         const cancion = await Cancion.findById(id);
         
         if (!cancion) {
             return response.status(404).render('404', { title: 'Canción no encontrada' });
+        }
+        
+        // Check for potential duplicates (for admin users)
+        let duplicates = [];
+        if (request.session.userRole === 'admin') {
+            duplicates = await Cancion.checkForDuplicates(id);
         }
         
         // Search for the song on Spotify
@@ -60,6 +71,8 @@ exports.getSong = async (request, response, next) => {
             path: '/canciones',
             cancion: cancion,
             spotifyTrack: spotifyTrack,
+            duplicates: duplicates,
+            isAdmin: request.session.userRole === 'admin',
             hasStyles: true
         });
     } catch (error) {
